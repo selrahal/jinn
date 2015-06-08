@@ -30,7 +30,8 @@ public class Network {
 	}
 	
 	public void fire(Layer input) {
-		this.resetAllNodes();
+		this.resetErrors();
+		this.resetNetInput();
 		
 		
 		//Set input layer values
@@ -53,15 +54,6 @@ public class Network {
 			}
 		}
 	}
-	
-	public void postTest() {
-		
-	}
-	
-	public void preTest() {
-		
-	}
-
 	
 	public void backPropagate(Layer expected){
 		Iterator<Neuron> expectedNeurons = expected.neuronIterator();
@@ -144,31 +136,23 @@ public class Network {
 	}
 	
 	private void resetErrors() {
-		//Reset input layer nodes
 		inputLayer.resetErrors();
 		
-		
-		//Reset Hidden 
 		for (Layer layer : hiddenLayers) {
 			layer.resetErrors();
 		}
 		
-		//Reset output
 		outputLayer.resetErrors();
 	}
 	
-	private void resetAllNodes() {
-		//Reset input layer nodes
-		inputLayer.resetNeurons();
+	private void resetNetInput() {
+		inputLayer.resetNetInput();
 		
-		
-		//Reset Hidden 
 		for (Layer layer : hiddenLayers) {
-			layer.resetNeurons();
+			layer.resetNetInput();
 		}
 		
-		//Reset output
-		outputLayer.resetNeurons();
+		outputLayer.resetNetInput();
 	}
 
 	public Layer getOutput(){

@@ -34,16 +34,15 @@ public class Layer {
 		}
 	}
 	
-	public void resetNeurons() {
-		for (Neuron neuron : neurons) {
-			neuron.setError(BigDecimal.ZERO);
-			neuron.setNetInput(BigDecimal.ZERO);
-		}
-	}
-	
 	public void resetErrors() {
 		for (Neuron neuron : neurons) {
 			neuron.setError(BigDecimal.ZERO);
+		}
+	}
+	
+	public void resetNetInput() {
+		for (Neuron neuron : neurons) {
+			neuron.setNetInput(BigDecimal.ZERO);
 		}
 	}
 	
@@ -63,6 +62,4 @@ public class Layer {
 	public String toString() {
 		return "Layer [neurons=" + neurons + ", links=" + links + "]";
 	}
-	
-	
 }
