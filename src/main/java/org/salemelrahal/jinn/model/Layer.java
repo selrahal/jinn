@@ -2,20 +2,48 @@ package org.salemelrahal.jinn.model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 public class Layer {
 	protected List<Neuron> neurons;
-	private List<Link> links;
+	protected List<Link> links = Collections.emptyList();
 	
-	public Layer() {
+	protected Layer() {
+		
 	}
-	
+
 	public Layer(int size) {
 		neurons = new ArrayList<Neuron>(size);
 		for (int i = 0 ; i < size ; i++){
 			neurons.add(new Neuron());
+		}
+	}
+	
+	public void learn() {
+		for (Neuron neuron: neurons) {
+			neuron.learn();
+		}
+		
+		for (Link link : links) {
+			link.learn();
+		}
+	}
+	
+	public void backpropagate() {
+		for (Link link : links) {
+			link.backPropagate();
+		}
+	}
+	
+	public void updateRunningError() {
+		for (Neuron neuron: neurons) {
+			neuron.updateRunningError();
+		}
+		
+		for (Link link : links) {
+			link.updateRunningError();
 		}
 	}
 	

@@ -10,7 +10,7 @@ public class Neuron {
 	protected BigDecimal netInput = BigDecimal.ZERO;
 	private BigDecimal bias = BigDecimal.ZERO;
 	private BigDecimal error = BigDecimal.ZERO;
-	private BigDecimal totalError = BigDecimal.ZERO;
+	private BigDecimal runningError = BigDecimal.ZERO;
 	private BigDecimal learningRate = BigDecimal.valueOf(1);
 	private int numberOfTests = 0;
 	
@@ -29,15 +29,15 @@ public class Neuron {
 	/**
 	 * only in charge of making sure the running delta is up to date
 	 */
-	public void updateTest() {
-		totalError = totalError.add(error);
+	public void updateRunningError() {
+		runningError = runningError.add(error);
 		numberOfTests++;
 	}
 	
 	public void learn() {
-		totalError = totalError.multiply(learningRate).divide(BigDecimal.valueOf(numberOfTests),5,RoundingMode.HALF_DOWN);
-		bias = bias.subtract(totalError);
-		totalError = BigDecimal.ZERO;
+		runningError = runningError.multiply(learningRate).divide(BigDecimal.valueOf(numberOfTests),5,RoundingMode.HALF_DOWN);
+		bias = bias.subtract(runningError);
+		runningError = BigDecimal.ZERO;
 		numberOfTests = 0;
 	}
 	

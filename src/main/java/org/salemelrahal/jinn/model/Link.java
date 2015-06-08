@@ -11,7 +11,7 @@ public class Link {
 	private Neuron from;
 	private Neuron to;
 	private BigDecimal weight;
-	private BigDecimal runningDelta = BigDecimal.ZERO;
+	private BigDecimal runningError = BigDecimal.ZERO;
 	private BigDecimal learningRate = BigDecimal.valueOf(1);
 	private int numberOfTests = 0;
 	
@@ -45,18 +45,18 @@ public class Link {
 	/**
 	 * only in charge of making sure the running delta is up to date
 	 */
-	public void updateTest() {
+	public void updateRunningError() {
 		BigDecimal activation = from.getActivation();
 		BigDecimal error = to.getError();
 		
-		runningDelta = runningDelta.add(activation.multiply(error));
+		runningError = runningError.add(activation.multiply(error));
 		numberOfTests++;
 	}
 	
 	public void learn() {
-		runningDelta = runningDelta.multiply(learningRate).divide(BigDecimal.valueOf(numberOfTests),5,RoundingMode.HALF_DOWN);
-		weight = weight.subtract(runningDelta);
-		runningDelta = BigDecimal.ZERO;
+		runningError = runningError.multiply(learningRate).divide(BigDecimal.valueOf(numberOfTests),5,RoundingMode.HALF_DOWN);
+		weight = weight.subtract(runningError);
+		runningError = BigDecimal.ZERO;
 		numberOfTests = 0;
 	}
 	

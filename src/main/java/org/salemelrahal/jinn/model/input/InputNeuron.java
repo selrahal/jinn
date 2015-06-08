@@ -22,4 +22,19 @@ public class InputNeuron extends Neuron {
 	public BigDecimal getBias() {
 		return BigDecimal.ZERO;
 	}
+	
+	/**
+	 * Input neurons have a fixed activation and bias, thus they cannot learn.
+	 */
+	@Override
+	public void learn() {
+	}
+	
+	/**
+	 * Input neurons have a fixed activation and bias, so they do not keep track of error.
+	 */
+	@Override
+	public void updateRunningError() {
+	}
+	
 }
