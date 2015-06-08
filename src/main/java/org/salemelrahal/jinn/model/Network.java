@@ -66,9 +66,6 @@ public class Network {
 		for (int i = layers.size() - 1; i >= 0; i--) {
 			layers.get(i).backpropagate();
 		}
-		
-		//update running deltas
-		updateRunningError();
 	}
 	
 	public void updateRunningError() {

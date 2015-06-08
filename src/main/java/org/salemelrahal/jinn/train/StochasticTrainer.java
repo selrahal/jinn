@@ -17,6 +17,7 @@ public class StochasticTrainer implements NetworkTrainer{
 					for (TrainingTest test : suite.getTests()) {
 						network.fire(test.getInput());
 						network.backPropagate(test.getExpected());
+						network.updateRunningError();
 					}
 					network.learn();
 				}
