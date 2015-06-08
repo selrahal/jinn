@@ -11,13 +11,13 @@ import org.salemelrahal.jinn.model.output.OutputLayer;
 public class Network {
 	private List<Layer> layers;
 	
-	public Network() {
-		//Only 3 layers for now (input, hidden, output)
+	public Network(int inputSize, int outputSize, int... hiddenSizes) {
 		layers = new ArrayList<Layer>(3);
-		
-		layers.add(new InputLayer(2));
-		layers.add(new Layer(4));
-		layers.add(new OutputLayer(1));
+		layers.add(new InputLayer(inputSize));
+		for (int i : hiddenSizes) {
+			layers.add(new Layer(i));
+		}
+		layers.add(new OutputLayer(outputSize));
 		
 		for (int i = 0 ; i + 1 < layers.size(); i++ ){
 			layers.get(i).before(layers.get(i+1));

@@ -19,7 +19,7 @@ public class XORTest {
 
 	@Test
 	public void testTrained() {
-		Network network = new Network();
+		Network network = new Network(2,1,4);
 		TrainingSuite xorSuite = XORTestProvider.getXorSuite();
 		NetworkTrainer trainer = new StochasticTrainer();
 		MeanSquaredTester tester = new MeanSquaredTester();
@@ -30,13 +30,13 @@ public class XORTest {
 		BigDecimal results = tester.test(network, xorSuite);
 		
 		
-		LOG.info("XOR Test results:" + results);
+		LOG.info("XOR trained Test results:" + results);
 		Assert.assertTrue("XOR trained test failed", results.compareTo(goal) < 0);
 	}
 	
 	@Test
 	public void testUntrained() {
-		Network network = new Network();
+		Network network = new Network(2,1,4);
 		TrainingSuite xorSuite = XORTestProvider.getXorSuite();
 		MeanSquaredTester tester = new MeanSquaredTester();
 		
@@ -45,6 +45,6 @@ public class XORTest {
 		
 		
 		LOG.info("XOR untrained Test results:" + results);
-		Assert.assertTrue("XOR test failed", results.compareTo(goal) > 0);
+		Assert.assertTrue("XOR untained test failed", results.compareTo(goal) > 0);
 	}
 }
