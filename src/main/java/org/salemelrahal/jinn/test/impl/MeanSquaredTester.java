@@ -8,13 +8,19 @@ import org.salemelrahal.jinn.test.TrainingSuite;
 import org.salemelrahal.jinn.test.TrainingTest;
 import org.salemelrahal.jinn.test.api.NetworkTester;
 import org.salemelrahal.jinn.util.MathUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MeanSquaredTester implements NetworkTester {
+	private static final Logger LOG = LoggerFactory.getLogger(MeanSquaredTester.class);
+	
 	public BigDecimal test(Network network, TrainingSuite suite) {
 		BigDecimal totalError = BigDecimal.ZERO;
 
 		for (TrainingTest test : suite.getTests()) {
-			totalError = totalError.add(this.test(network, test));
+			BigDecimal testScore = this.test(network, test);
+			LOG.info("Test score:" + testScore);
+			totalError = totalError.add(testScore);
 		}
 		
 		return totalError;

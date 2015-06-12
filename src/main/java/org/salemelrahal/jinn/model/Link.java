@@ -12,7 +12,7 @@ public class Link {
 	private Neuron to;
 	private BigDecimal weight;
 	private BigDecimal runningError = BigDecimal.ZERO;
-	private BigDecimal learningRate = BigDecimal.valueOf(1);
+	private BigDecimal learningRate = BigDecimal.valueOf(10);
 	private int numberOfTests = 0;
 	
 	public Link(Neuron from, Neuron to) {

@@ -88,6 +88,13 @@ public class Layer {
 
 	@Override
 	public String toString() {
-		return "Layer [neurons=" + neurons + ", links=" + links + "]";
+		StringBuilder sb = new StringBuilder("Layer [");
+		for (Neuron neuron: neurons) {
+			sb.append(neuron.getActivation());
+			sb.append("(");
+			sb.append(neuron.getNetInput());
+			sb.append("),");
+		}
+		return sb.toString();
 	}
 }

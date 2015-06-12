@@ -4,7 +4,11 @@ import java.math.BigDecimal;
 
 import org.salemelrahal.jinn.model.Neuron;
 
-public class InputNeuron extends Neuron {
+public class StaticActivationNeuron extends Neuron {
+	
+	public StaticActivationNeuron() {
+		setBias(BigDecimal.ZERO);
+	}
 	
 	/**
 	 * The activation function for input neurons is the identity function.

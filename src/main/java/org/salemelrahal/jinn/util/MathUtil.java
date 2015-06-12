@@ -1,8 +1,16 @@
 package org.salemelrahal.jinn.util;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MathUtil {
+	private static Map<BigDecimal, BigDecimal> sigmoidCache = new HashMap<BigDecimal, BigDecimal>(256);
+	static {
+		for (int i = 0; i < 256; i++) {
+			sigmoidCache.put(BigDecimal.valueOf(i), sigmoid(BigDecimal.valueOf(i)));
+		}
+	}
 
 	/**
 	 * Calculate the result of sigmoid(x) 
@@ -10,6 +18,9 @@ public class MathUtil {
 	 * @return 1/(1+e^(-x))
 	 */
 	public static BigDecimal sigmoid(BigDecimal x) {
+		if (sigmoidCache.containsKey(x)) {
+			return sigmoidCache.get(x);
+		}
 		double part = Math.pow(Math.E, x.doubleValue() * -1);
 		return BigDecimal.ONE.divide(BigDecimal.ONE.add(BigDecimal.valueOf(part)), 5, BigDecimal.ROUND_DOWN);
 	}

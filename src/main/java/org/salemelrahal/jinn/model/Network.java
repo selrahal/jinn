@@ -5,19 +5,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.salemelrahal.jinn.model.input.InputLayer;
-import org.salemelrahal.jinn.model.output.OutputLayer;
+import org.salemelrahal.jinn.model.input.StaticLayer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Network {
+	private static final Logger LOG = LoggerFactory.getLogger(Network.class);
 	private List<Layer> layers;
 	
 	public Network(int inputSize, int outputSize, int... hiddenSizes) {
 		layers = new ArrayList<Layer>(3);
-		layers.add(new InputLayer(inputSize));
+		layers.add(new StaticLayer(inputSize));
 		for (int i : hiddenSizes) {
 			layers.add(new Layer(i));
 		}
-		layers.add(new OutputLayer(outputSize));
+		layers.add(new Layer(outputSize));
 		
 		for (int i = 0 ; i + 1 < layers.size(); i++ ){
 			layers.get(i).before(layers.get(i+1));
@@ -35,7 +37,8 @@ public class Network {
 			if (!fromSet.hasNext()) {
 				break;
 			} else {
-				to.setNetInput(fromSet.next().getNetInput());
+				Neuron from = fromSet.next();
+				to.setNetInput(from.getNetInput());
 			}
 		}
 		
@@ -57,12 +60,12 @@ public class Network {
 				BigDecimal actualActivation = neuron.getActivation();
 				BigDecimal cost = actualActivation.subtract(expectedActivation);
 				BigDecimal error = cost.multiply(neuron.getActivationDerivative());
-//				System.out.println("E:" + expectedActivation + ", A:" + actualActivation + ", AD:" + neuron.getActivationDerivative()+ ", Error " + error);
+//				LOG.info("E:" + expectedActivation + ", A:" + actualActivation + ", AD:" + neuron.getActivationDerivative()+ ", Error " + error);
 				neuron.setError(error);
 			}
 		}
 		
-		//Back propagate error backwards through the hidden layers
+		//Back propagate error through the hidden layers
 		for (int i = layers.size() - 1; i >= 0; i--) {
 			layers.get(i).backpropagate();
 		}
@@ -99,6 +102,11 @@ public class Network {
 
 	@Override
 	public String toString() {
-		return "Network layers=" + layers;
+		StringBuilder sb = new StringBuilder("Network \n");
+		for (Layer layer : layers) {
+			sb.append(layer.toString());
+			sb.append("\n");
+		}
+		return sb.toString();
 	}
 }

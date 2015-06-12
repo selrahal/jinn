@@ -8,22 +8,35 @@ import org.salemelrahal.jinn.util.RandomUtil;
 
 public class Neuron {
 	protected BigDecimal netInput = BigDecimal.ZERO;
-	private BigDecimal bias = BigDecimal.ZERO;
+	private BigDecimal bias = RandomUtil.randomBigDecimal();
 	private BigDecimal error = BigDecimal.ZERO;
 	private BigDecimal runningError = BigDecimal.ZERO;
-	private BigDecimal learningRate = BigDecimal.valueOf(1);
+	private BigDecimal learningRate = BigDecimal.valueOf(10);
 	private int numberOfTests = 0;
 	
+	private boolean cachedActivationStale = true;
+	private BigDecimal cachedActivation = BigDecimal.ZERO;
+	
+	private boolean cachedActivationDerivitiveStale = true;
+	private BigDecimal cachedActivationDerivitave = BigDecimal.ZERO;
+	
 	public Neuron() {
-		bias = RandomUtil.randomBigDecimal();
 	}
 	
 	public BigDecimal getActivation() {
-		return MathUtil.sigmoid(netInput.add(bias));
+		if (cachedActivationStale) {
+			cachedActivation = MathUtil.sigmoid(netInput.add(bias));
+			cachedActivationStale = false;
+		}
+		return cachedActivation;
 	}
 	
 	public BigDecimal getActivationDerivative() {
-		return MathUtil.sigmoidDerivitave(netInput.add(bias));
+		if (cachedActivationDerivitiveStale) {
+			cachedActivationDerivitave = MathUtil.sigmoidDerivitave(netInput.add(bias));;
+			cachedActivationDerivitiveStale = false;
+		}
+		return cachedActivationDerivitave;
 	}
 	
 	/**
@@ -42,6 +55,8 @@ public class Neuron {
 	}
 	
 	public void setNetInput(BigDecimal activation) {
+		cachedActivationDerivitiveStale = true;
+		cachedActivationStale = true;
 		this.netInput = activation;
 	}
 	
