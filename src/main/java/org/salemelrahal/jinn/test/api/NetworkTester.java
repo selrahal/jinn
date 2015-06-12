@@ -6,6 +6,9 @@ import org.salemelrahal.jinn.model.Network;
 import org.salemelrahal.jinn.test.TrainingSuite;
 import org.salemelrahal.jinn.test.TrainingTest;
 
+/**
+ * Used to determine the error of a network for a given TrainingTest or TrainingSuite.
+ */
 public interface NetworkTester {
 	public BigDecimal test(Network network, TrainingSuite suite);
 	public BigDecimal test(Network network, TrainingTest test);
