@@ -32,7 +32,7 @@ public class XORTest {
 		NetworkTrainer trainer = new StochasticTrainer();
 		MeanSquaredTester tester = new MeanSquaredTester();
 		
-		trainer.train(network, xorSuite, 4, 5000);
+		trainer.train(network, xorSuite, BigDecimal.valueOf(3), 4, 5000);
 		
 		
 		BigDecimal results = tester.test(network, xorSuite);

@@ -30,7 +30,7 @@ public class MNISTReader {
 		  System.out.println("==================READING============");
 		  TrainingSuite suite = train(network, tester, trainer, "/home/selrahal/Projects/blog/code/jinn/train-labels-idx1-ubyte", "/home/selrahal/Projects/blog/code/jinn/train-images-idx3-ubyte");
 		  System.out.println("==================TRAINING============");
-		  trainer.train(network, suite, 10, 10);
+		  trainer.train(network, suite, BigDecimal.valueOf(3), 10, 10);
 
 //		  trainer.trainOnce(network, suite, 10);
 		  System.out.println("==================TESTING============");

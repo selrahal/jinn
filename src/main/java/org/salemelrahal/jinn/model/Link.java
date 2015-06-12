@@ -1,7 +1,6 @@
 package org.salemelrahal.jinn.model;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import org.salemelrahal.jinn.util.RandomUtil;
 
@@ -12,8 +11,6 @@ public class Link {
 	private Neuron to;
 	private BigDecimal weight;
 	private BigDecimal runningError = BigDecimal.ZERO;
-	private BigDecimal learningRate = BigDecimal.valueOf(10);
-	private int numberOfTests = 0;
 	
 	public Link(Neuron from, Neuron to) {
 		this(from, to, RandomUtil.randomBigDecimal());
@@ -44,20 +41,19 @@ public class Link {
 	
 	/**
 	 * only in charge of making sure the running delta is up to date
+	 * @param learningRateFactor 
 	 */
-	public void updateRunningError() {
+	public void updateRunningError(BigDecimal learningRateFactor) {
 		BigDecimal activation = from.getActivation();
 		BigDecimal error = to.getError();
 		
-		runningError = runningError.add(activation.multiply(error));
-		numberOfTests++;
+		runningError = runningError.add(activation.multiply(error).multiply(learningRateFactor));
 	}
 	
 	public void learn() {
-		runningError = runningError.multiply(learningRate).divide(BigDecimal.valueOf(numberOfTests),5,RoundingMode.HALF_DOWN);
+//		runningError = runningError.multiply(learningRate).divide(BigDecimal.valueOf(numberOfTests),5,RoundingMode.HALF_DOWN);
 		weight = weight.subtract(runningError);
 		runningError = BigDecimal.ZERO;
-		numberOfTests = 0;
 	}
 	
 	public Neuron getFrom() {

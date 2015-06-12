@@ -37,13 +37,13 @@ public class Layer {
 		}
 	}
 	
-	public void updateRunningError() {
+	public void updateRunningError(BigDecimal learningRateFactor) {
 		for (Neuron neuron: neurons) {
-			neuron.updateRunningError();
+			neuron.updateRunningError(learningRateFactor);
 		}
 		
 		for (Link link : links) {
-			link.updateRunningError();
+			link.updateRunningError(learningRateFactor);
 		}
 	}
 	

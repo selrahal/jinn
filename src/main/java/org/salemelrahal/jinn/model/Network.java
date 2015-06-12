@@ -71,9 +71,9 @@ public class Network {
 		}
 	}
 	
-	public void updateRunningError() {
+	public void updateRunningError(BigDecimal learningRateFactor) {
 		for (Layer layer : layers) {
-			layer.updateRunningError();
+			layer.updateRunningError(learningRateFactor);
 		}
 	}
 

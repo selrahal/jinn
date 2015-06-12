@@ -38,7 +38,7 @@ public class StaticActivationNeuron extends Neuron {
 	 * Input neurons have a fixed activation and bias, so they do not keep track of error.
 	 */
 	@Override
-	public void updateRunningError() {
+	public void updateRunningError(BigDecimal learningRateFactor) {
 	}
 	
 }
