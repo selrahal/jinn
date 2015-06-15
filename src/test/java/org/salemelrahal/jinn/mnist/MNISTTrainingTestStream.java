@@ -1,4 +1,4 @@
-package org.salemelrahal.jinn.app;
+package org.salemelrahal.jinn.mnist;
 
 import java.io.DataInputStream;
 import java.io.FileInputStream;

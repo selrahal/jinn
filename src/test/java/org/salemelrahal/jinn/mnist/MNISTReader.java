@@ -1,4 +1,4 @@
-package org.salemelrahal.jinn.app;
+package org.salemelrahal.jinn.mnist;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -23,18 +23,19 @@ public class MNISTReader {
 		String imageFile = directory + "train-images-idx3-ubyte";
 		String labelFile = directory + "train-labels-idx1-ubyte";
 		RealtimeTrainer trainer = new RealtimeTrainer();
-		long start = System.currentTimeMillis();
-		for (int epoch = 0; epoch < 1;  epoch++){
+		
+		for (int epoch = 0; epoch < 10;  epoch++){
+			 System.out.println("==================EPOCH:"+epoch+"============");
 			MNISTTrainingTestStream tests = new MNISTTrainingTestStream(imageFile, labelFile);
 
+			long start = System.currentTimeMillis();
 		   while (tests.hasNext()) {
-					
-					
 					trainer.train(network, tests, .3, 10);
 		   }
 		   System.out.println("Time to train:" + (System.currentTimeMillis() - start));
 		   
-		   System.out.println("==================TESTING============");
+		   
+		  
 //			MeanSquaredStreamTester tester = new MeanSquaredStreamTester();
 			OneChoiceStreamTester tester = new OneChoiceStreamTester();
 
@@ -42,8 +43,7 @@ public class MNISTReader {
 			labelFile = directory + "t10k-labels-idx1-ubyte";
 			
 			MNISTTrainingTestStream testStream = new MNISTTrainingTestStream(imageFile, labelFile);
-			System.out.println("Time to train:" + (System.currentTimeMillis() - start));
-			System.out.println("Score:"+tester.test(network,testStream) + " epoch:" + epoch);
+			System.out.println("Score:"+tester.test(network,testStream));
 			
 			long time = System.currentTimeMillis();
 			 System.out.println("Time to test:" + (System.currentTimeMillis() - time));

@@ -1,6 +1,5 @@
 package org.salemelrahal.jinn.test.impl;
 
-import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class OneChoiceStreamTester {
-	private static final Logger LOG = LoggerFactory.getLogger(OneChoiceTester.class);
+	private static final Logger LOG = LoggerFactory.getLogger(OneChoiceStreamTester.class);
 
 	public double test(Network network, Iterator<TrainingTest> tests) {
 		double totalTests = 0;
@@ -82,7 +81,7 @@ public class OneChoiceStreamTester {
 			}
 		}
 		
-		LOG.info(answerIndex + ":" + bestGuessIndex);
+//		LOG.info(answerIndex + ":" + bestGuessIndex);
 		if (answerIndex == bestGuessIndex) {
 			return 0;
 		} else {
