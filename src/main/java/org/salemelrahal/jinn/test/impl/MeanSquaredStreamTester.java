@@ -6,11 +6,8 @@ import org.salemelrahal.jinn.model.Layer;
 import org.salemelrahal.jinn.model.Network;
 import org.salemelrahal.jinn.test.TrainingTest;
 import org.salemelrahal.jinn.util.MathUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class MeanSquaredStreamTester {
-	private static final Logger LOG = LoggerFactory.getLogger(MeanSquaredStreamTester.class);
 	
 	public double test(Network network, Iterator<TrainingTest> tests) {
 		double totalError = 0;

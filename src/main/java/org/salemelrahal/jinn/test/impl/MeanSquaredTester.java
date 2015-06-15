@@ -1,7 +1,5 @@
 package org.salemelrahal.jinn.test.impl;
 
-import java.math.BigDecimal;
-
 import org.salemelrahal.jinn.model.Layer;
 import org.salemelrahal.jinn.model.Network;
 import org.salemelrahal.jinn.test.TrainingSuite;

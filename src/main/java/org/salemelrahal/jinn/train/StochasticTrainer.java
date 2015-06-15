@@ -1,6 +1,5 @@
 package org.salemelrahal.jinn.train;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.salemelrahal.jinn.model.Network;

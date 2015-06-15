@@ -16,13 +16,13 @@ public class XORTestProvider {
 	 * @return
 	 */
 	public static TrainingTest getXor1() {
-		TrainingTest test = new TrainingTest();
+		final TrainingTest test = new TrainingTest();
 		
-		StaticLayer input = new StaticLayer(2);
+		final StaticLayer input = new StaticLayer(2);
 		input.getNeurons().get(0).setNetInput(1);
 		input.getNeurons().get(1).setNetInput(1);
 		
-		StaticLayer expected = new StaticLayer(1);
+		final StaticLayer expected = new StaticLayer(1);
 		expected.getNeurons().get(0).setNetInput(0);
 		
 		test.setInput(input);
@@ -36,13 +36,13 @@ public class XORTestProvider {
 	 * @return
 	 */
 	public static TrainingTest getXor2() {
-		TrainingTest test = new TrainingTest();
+		final TrainingTest test = new TrainingTest();
 		
-		StaticLayer input = new StaticLayer(2);
+		final StaticLayer input = new StaticLayer(2);
 		input.getNeurons().get(0).setNetInput(0);
 		input.getNeurons().get(1).setNetInput(0);
 		
-		StaticLayer expected = new StaticLayer(1);
+		final StaticLayer expected = new StaticLayer(1);
 		expected.getNeurons().get(0).setNetInput(0);
 		
 		test.setInput(input);
@@ -56,13 +56,13 @@ public class XORTestProvider {
 	 * @return
 	 */
 	public static TrainingTest getXor3() {
-		TrainingTest test = new TrainingTest();
+		final TrainingTest test = new TrainingTest();
 		
-		StaticLayer input = new StaticLayer(2);
+		final StaticLayer input = new StaticLayer(2);
 		input.getNeurons().get(0).setNetInput(1);
 		input.getNeurons().get(1).setNetInput(0);
 		
-		StaticLayer expected = new StaticLayer(1);
+		final StaticLayer expected = new StaticLayer(1);
 		expected.getNeurons().get(0).setNetInput(1);
 		
 		test.setInput(input);
@@ -76,13 +76,13 @@ public class XORTestProvider {
 	 * @return
 	 */
 	public static TrainingTest getXor4() {
-		TrainingTest test = new TrainingTest();
+		final TrainingTest test = new TrainingTest();
 		
-		StaticLayer input = new StaticLayer(2);
+		final StaticLayer input = new StaticLayer(2);
 		input.getNeurons().get(0).setNetInput(0);
 		input.getNeurons().get(1).setNetInput(1);
 		
-		StaticLayer expected = new StaticLayer(1);
+		final StaticLayer expected = new StaticLayer(1);
 		expected.getNeurons().get(0).setNetInput(1);
 		
 		test.setInput(input);
@@ -95,7 +95,7 @@ public class XORTestProvider {
 	 * @return a TrainingSuite with all 4 XOR tests
 	 */
 	public static TrainingSuite getXorSuite() {
-		TrainingSuite trainingSuite = new TrainingSuite();
+		final TrainingSuite trainingSuite = new TrainingSuite();
 		trainingSuite.addTest(getXor1());
 		trainingSuite.addTest(getXor2());
 		trainingSuite.addTest(getXor3());
@@ -107,7 +107,7 @@ public class XORTestProvider {
 	 * @return a TrainingSuite with the XOR tests that should output 0
 	 */
 	public static TrainingSuite getXorSuite0() {
-		TrainingSuite trainingSuite = new TrainingSuite();
+		final TrainingSuite trainingSuite = new TrainingSuite();
 		trainingSuite.addTest(getXor1());
 		trainingSuite.addTest(getXor2());
 		return trainingSuite;
@@ -117,7 +117,7 @@ public class XORTestProvider {
 	 * @return a TrainingSuite with the XOR tests that should output 1
 	 */
 	public static TrainingSuite getXorSuite1() {
-		TrainingSuite trainingSuite = new TrainingSuite();
+		final TrainingSuite trainingSuite = new TrainingSuite();
 		trainingSuite.addTest(getXor3());
 		trainingSuite.addTest(getXor4());
 		return trainingSuite;

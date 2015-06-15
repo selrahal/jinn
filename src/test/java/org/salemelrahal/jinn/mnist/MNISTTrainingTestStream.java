@@ -5,18 +5,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.salemelrahal.jinn.model.Network;
 import org.salemelrahal.jinn.model.Neuron;
 import org.salemelrahal.jinn.model.input.StaticLayer;
-import org.salemelrahal.jinn.test.TrainingSuite;
 import org.salemelrahal.jinn.test.TrainingTest;
-import org.salemelrahal.jinn.test.api.NetworkTester;
-import org.salemelrahal.jinn.test.impl.OneChoiceTester;
-import org.salemelrahal.jinn.train.StochasticTrainer;
-import org.salemelrahal.jinn.train.api.NetworkTrainer;
 
 public class MNISTTrainingTestStream implements Iterator<TrainingTest> {
-	private static final double scale = 256;
+	private static final double SCALE = 256;
 	int numLabels = 0;
 	int numImages = 0;
 	int numRows = 0;
@@ -121,7 +115,7 @@ public void remove(){
 	  
 	private double standardize(double value) {
 		//return value.subtract(BigDecimal.valueOf(128)).divide(scale);
-		return value / scale;
+		return value / SCALE;
 	}
 	
 }

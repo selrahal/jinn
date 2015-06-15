@@ -7,11 +7,8 @@ import org.salemelrahal.jinn.model.Layer;
 import org.salemelrahal.jinn.model.Network;
 import org.salemelrahal.jinn.model.Neuron;
 import org.salemelrahal.jinn.test.TrainingTest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class OneChoiceStreamTester {
-	private static final Logger LOG = LoggerFactory.getLogger(OneChoiceStreamTester.class);
 
 	public double test(Network network, Iterator<TrainingTest> tests) {
 		double totalTests = 0;

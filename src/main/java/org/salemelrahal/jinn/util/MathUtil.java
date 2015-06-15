@@ -9,12 +9,11 @@ public class MathUtil {
 	 * @return 1/(1+e^(-x))
 	 */
 	public static double sigmoid(double x) {
-		//By using a double here (and the Math library) we get 'Infinity' edge case
 		double part = Math.pow(Math.E, x * -1);
-		try {
-			return 1/(1+part);
-		} catch (NumberFormatException e) {
+		if (Double.isInfinite(part)) {
 			return 0;
+		} else {
+			return 1/(1+part);
 		}
 	}
 	

@@ -1,14 +1,12 @@
 package org.salemelrahal.jinn.mnist;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 
 import org.salemelrahal.jinn.model.Network;
 import org.salemelrahal.jinn.test.impl.OneChoiceStreamTester;
 import org.salemelrahal.jinn.test.stream.RealtimeTrainer;
 
 public class MNISTReader {
-	private static final BigDecimal scale = BigDecimal.valueOf(256);
 	/**
 	   * @param args
 	   *          args[0]: label file; args[1]: data file.

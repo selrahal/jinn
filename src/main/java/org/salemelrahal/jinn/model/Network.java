@@ -5,11 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.salemelrahal.jinn.model.input.StaticLayer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Network {
-	private static final Logger LOG = LoggerFactory.getLogger(Network.class);
 	private List<Layer> layers;
 	
 	public Network(int inputSize, int outputSize, int... hiddenSizes) {

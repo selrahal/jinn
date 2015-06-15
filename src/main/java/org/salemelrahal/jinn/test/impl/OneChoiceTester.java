@@ -1,6 +1,5 @@
 package org.salemelrahal.jinn.test.impl;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.salemelrahal.jinn.model.Layer;
@@ -9,11 +8,8 @@ import org.salemelrahal.jinn.model.Neuron;
 import org.salemelrahal.jinn.test.TrainingSuite;
 import org.salemelrahal.jinn.test.TrainingTest;
 import org.salemelrahal.jinn.test.api.NetworkTester;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class OneChoiceTester implements NetworkTester {
-	private static final Logger LOG = LoggerFactory.getLogger(OneChoiceTester.class);
 
 	public double test(Network network, TrainingSuite suite) {
 		double totalTests = 0;

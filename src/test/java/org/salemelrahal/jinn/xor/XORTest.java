@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  */
 public class XORTest {
 	private static final Logger LOG = LoggerFactory.getLogger(XORTest.class);
-	private static final double goal = .04;
+	private static final double GOAL = .04;
 
 	/**
 	 * Test the trained network to make sure its error is below the goal error.
@@ -39,7 +39,7 @@ public class XORTest {
 		
 		
 		LOG.info("XOR trained Test results:" + results);
-		Assert.assertTrue("XOR trained test failed("+results+")", results < goal);
+		Assert.assertTrue("XOR trained test failed("+results+")", results < GOAL);
 	}
 	
 	/**
@@ -57,7 +57,7 @@ public class XORTest {
 		
 		
 		LOG.info("XOR untrained Test results:" + results);
-		Assert.assertTrue("XOR untained test failed ("+results+")", results > goal);
+		Assert.assertTrue("XOR untained test failed ("+results+")", results > GOAL);
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class XORTest {
 		
 		
 		LOG.info("XOR trained Test results:" + results);
-		Assert.assertTrue("XOR trained test failed("+results+")", results  < goal);
+		Assert.assertTrue("XOR trained test failed("+results+")", results  < GOAL);
 	}
 
 	/**
@@ -99,6 +99,6 @@ public class XORTest {
 		
 		
 		LOG.info("XOR trained Test results:" + results);
-		Assert.assertTrue("XOR trained test failed("+results+")", results < goal);
+		Assert.assertTrue("XOR trained test failed("+results+")", results < GOAL);
 	}
 }
