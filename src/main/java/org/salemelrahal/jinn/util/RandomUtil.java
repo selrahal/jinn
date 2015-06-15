@@ -6,15 +6,8 @@ import java.util.Random;
 public class RandomUtil {
 	private static final Random INSTANCE = new Random();
 	
-	public static BigDecimal getRandom(int start, int end) {
-		double random = INSTANCE.nextDouble();
-		int range = end - start;
-		double extra = random * range;
-		return BigDecimal.valueOf(start + extra);
-	}
-	
 	public static BigDecimal randomBigDecimal(){
-		return BigDecimal.valueOf(INSTANCE.nextDouble());
+		return BigDecimal.valueOf(INSTANCE.nextGaussian());
 	}
 	
 	public static boolean randomBoolean() {

@@ -97,4 +97,15 @@ public class Layer {
 		}
 		return sb.toString();
 	}
+
+	public BigDecimal hashed() {
+		BigDecimal count = BigDecimal.ZERO;
+		for (Link link : links) {
+			count = count.add(link.hashed());
+		}
+		for (Neuron neuron : neurons) {
+			count = count.add(neuron.hashed());
+		}
+		return count;
+	}
 }

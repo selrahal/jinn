@@ -2,6 +2,7 @@ package org.salemelrahal.jinn.test.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Iterator;
 
 import org.salemelrahal.jinn.model.Layer;
 import org.salemelrahal.jinn.model.Network;
@@ -12,14 +13,32 @@ import org.salemelrahal.jinn.test.api.NetworkTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OneChoiceTester implements NetworkTester {
+public class OneChoiceStreamTester {
 	private static final Logger LOG = LoggerFactory.getLogger(OneChoiceTester.class);
 
-	public BigDecimal test(Network network, TrainingSuite suite) {
+	public BigDecimal test(Network network, Iterator<TrainingTest> tests) {
 		BigDecimal totalTests = BigDecimal.ZERO;
 		BigDecimal passes = BigDecimal.ZERO;
 		
-		for (TrainingTest test : suite.getTests()) {
+		while (tests.hasNext()){
+			TrainingTest test = tests.next();
+			if (this.test(network, test).equals(BigDecimal.ZERO)) {
+				passes = passes.add(BigDecimal.ONE);
+			}
+			
+			totalTests = totalTests.add(BigDecimal.ONE);
+		}
+		return passes.divide(totalTests);
+	}
+
+	public BigDecimal test(Network network, Iterator<TrainingTest> tests, int limit) {
+		int count = 0;
+		BigDecimal totalTests = BigDecimal.ZERO;
+		BigDecimal passes = BigDecimal.ZERO;
+		
+		while (count < limit && tests.hasNext()){
+			count++;
+			TrainingTest test = tests.next();
 			if (this.test(network, test).equals(BigDecimal.ZERO)) {
 				passes = passes.add(BigDecimal.ONE);
 			}
@@ -65,7 +84,7 @@ public class OneChoiceTester implements NetworkTester {
 			}
 		}
 		
-//		LOG.info(answerIndex + ":" + bestGuessIndex);
+		LOG.info(answerIndex + ":" + bestGuessIndex);
 		if (answerIndex == bestGuessIndex) {
 			return BigDecimal.ZERO;
 		} else {

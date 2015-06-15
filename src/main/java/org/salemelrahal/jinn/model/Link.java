@@ -122,4 +122,8 @@ public class Link {
 		return "Link [from=" + from + ", to=" + to + ", weight=" + weight + "]";
 	}
 
+	public BigDecimal hashed() {
+		return weight;
+	}
+
 }

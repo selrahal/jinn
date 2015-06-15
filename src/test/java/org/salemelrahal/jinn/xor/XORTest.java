@@ -6,7 +6,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.salemelrahal.jinn.model.Network;
 import org.salemelrahal.jinn.test.TrainingSuite;
+import org.salemelrahal.jinn.test.stream.RealtimeTrainer;
 import org.salemelrahal.jinn.test.impl.MeanSquaredTester;
+import org.salemelrahal.jinn.test.impl.MeanSquaredStreamTester;
 import org.salemelrahal.jinn.train.StochasticTrainer;
 import org.salemelrahal.jinn.train.api.NetworkTrainer;
 import org.salemelrahal.jinn.xor.provider.XORTestProvider;
@@ -58,5 +60,47 @@ public class XORTest {
 		
 		LOG.info("XOR untrained Test results:" + results);
 		Assert.assertTrue("XOR untained test failed ("+results+")", results.compareTo(goal) > 0);
+	}
+
+	/**
+	 * Test the stream-trained network to make sure its error is below the goal error.
+	 */
+	@Test
+	public void testStreamTrained() {
+		Network network = new Network(2,1,4);
+		TrainingSuite xorSuite = XORTestProvider.getXorSuite();
+		RealtimeTrainer trainer = new RealtimeTrainer();
+		MeanSquaredTester tester = new MeanSquaredTester();
+		
+		for (int epoch = 0; epoch < 5000; epoch++)
+			trainer.train(network, xorSuite.getTests().iterator(), BigDecimal.valueOf(1));
+		
+		
+		BigDecimal results = tester.test(network, xorSuite);
+		
+		
+		LOG.info("XOR trained Test results:" + results);
+		Assert.assertTrue("XOR trained test failed("+results+")", results.compareTo(goal) < 0);
+	}
+
+	/**
+	 * Test the stream-trained network using a stream based tester to make sure its error is below the goal error.
+	 */
+	@Test
+	public void streamTestStreamTrained() {
+		Network network = new Network(2,1,4);
+		TrainingSuite xorSuite = XORTestProvider.getXorSuite();
+		RealtimeTrainer trainer = new RealtimeTrainer();
+		MeanSquaredStreamTester tester = new MeanSquaredStreamTester();
+		
+		for (int epoch = 0; epoch < 5000; epoch++)
+			trainer.train(network, xorSuite.getTests().iterator(), BigDecimal.valueOf(1));
+		
+		
+		BigDecimal results = tester.test(network, xorSuite.getTests().iterator());
+		
+		
+		LOG.info("XOR trained Test results:" + results);
+		Assert.assertTrue("XOR trained test failed("+results+")", results.compareTo(goal) < 0);
 	}
 }

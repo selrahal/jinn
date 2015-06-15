@@ -82,4 +82,8 @@ public class Neuron {
 				+ getActivation() + "]";
 	}
 
+	public BigDecimal hashed() {
+		return bias;
+	}
+
 }

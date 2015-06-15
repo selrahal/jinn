@@ -21,8 +21,13 @@ public class MathUtil {
 		if (sigmoidCache.containsKey(x)) {
 			return sigmoidCache.get(x);
 		}
+		//By using a double here (and the Math library) we get 'Infinity' edge case
 		double part = Math.pow(Math.E, x.doubleValue() * -1);
-		return BigDecimal.ONE.divide(BigDecimal.ONE.add(BigDecimal.valueOf(part)), 5, BigDecimal.ROUND_DOWN);
+		try {
+			return BigDecimal.ONE.divide(BigDecimal.ONE.add(BigDecimal.valueOf(part)), 10, BigDecimal.ROUND_DOWN);
+		} catch (NumberFormatException e) {
+			return BigDecimal.ZERO;
+		}
 	}
 	
 	/**

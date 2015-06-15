@@ -109,4 +109,12 @@ public class Network {
 		}
 		return sb.toString();
 	}
+	
+	public BigDecimal hashed() {
+		BigDecimal count = BigDecimal.ZERO;
+		for (Layer layer : layers) {
+			count = count.add(layer.hashed());
+		}
+		return count;
+	}
 }

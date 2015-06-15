@@ -99,7 +99,6 @@ public class MNISTReader {
 		    return suite;
 	  }
 	
-	  @SuppressWarnings("unused")
 	  private static TrainingTest trainImage(Network network, NetworkTrainer trainer, byte label, int[][] image) {
 		  TrainingTest test = new TrainingTest();
 		  StaticLayer input = new StaticLayer(784);
