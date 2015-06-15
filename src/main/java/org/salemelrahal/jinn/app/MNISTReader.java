@@ -30,7 +30,7 @@ public class MNISTReader {
 		   while (tests.hasNext()) {
 					
 					
-					trainer.train(network, tests, BigDecimal.valueOf(.3), 10);
+					trainer.train(network, tests, .3, 10);
 		   }
 		   System.out.println("Time to train:" + (System.currentTimeMillis() - start));
 		   

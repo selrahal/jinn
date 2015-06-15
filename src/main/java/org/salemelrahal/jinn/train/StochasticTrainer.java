@@ -10,7 +10,7 @@ import org.salemelrahal.jinn.train.api.NetworkTrainer;
 
 public class StochasticTrainer implements NetworkTrainer {
 
-	public void train(Network network, TrainingSuite trainingSuite, BigDecimal learningRate, int batchSize, int epochs) {
+	public void train(Network network, TrainingSuite trainingSuite, double learningRate, int batchSize, int epochs) {
 		for (int i = 0; i < epochs; i++) {
 			List<TrainingSuite> split = trainingSuite.split(batchSize);
 			for (TrainingSuite suite : split) {
@@ -19,13 +19,13 @@ public class StochasticTrainer implements NetworkTrainer {
 		}
 	}
 
-	public void train(Network network, TrainingSuite trainingSuite, BigDecimal learningRate) {
+	public void train(Network network, TrainingSuite trainingSuite, double learningRate) {
 		int batchSize = trainingSuite.getTests().size();
 		if (batchSize > 0) {
 			for (TrainingTest test : trainingSuite.getTests()) {
 				network.fire(test.getInput());
 				network.backPropagate(test.getExpected());
-				network.updateRunningError(learningRate.divide(BigDecimal.valueOf(batchSize)));
+				network.updateRunningError(learningRate /batchSize);
 			}
 			network.learn();
 		}

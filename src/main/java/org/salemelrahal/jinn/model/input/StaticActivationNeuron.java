@@ -1,13 +1,11 @@
 package org.salemelrahal.jinn.model.input;
 
-import java.math.BigDecimal;
-
 import org.salemelrahal.jinn.model.Neuron;
 
 public class StaticActivationNeuron extends Neuron {
 	
 	public StaticActivationNeuron() {
-		setBias(BigDecimal.ZERO);
+		setBias(0);
 	}
 	
 	/**
@@ -15,7 +13,7 @@ public class StaticActivationNeuron extends Neuron {
 	 * f(x) = x
 	 */
 	@Override
-	public BigDecimal getActivation() {
+	public double getActivation() {
 		return this.netInput;
 	}
 	
@@ -23,8 +21,8 @@ public class StaticActivationNeuron extends Neuron {
 	 * Input neurons do not have a bias.
 	 */
 	@Override
-	public BigDecimal getBias() {
-		return BigDecimal.ZERO;
+	public double getBias() {
+		return 0;
 	}
 	
 	/**
@@ -38,7 +36,7 @@ public class StaticActivationNeuron extends Neuron {
 	 * Input neurons have a fixed activation and bias, so they do not keep track of error.
 	 */
 	@Override
-	public void updateRunningError(BigDecimal learningRateFactor) {
+	public void updateRunningError(double learningRateFactor) {
 	}
 	
 }

@@ -1,7 +1,5 @@
 package org.salemelrahal.jinn.train.api;
 
-import java.math.BigDecimal;
-
 import org.salemelrahal.jinn.model.Network;
 import org.salemelrahal.jinn.test.TrainingSuite;
 
@@ -15,5 +13,5 @@ public interface NetworkTrainer {
 	 * @param batchSize the size of the batches of tests to quicken learning
 	 * @param epochs number of times all of the Training Tests in the trainingSuite will be used.
 	 */
-	public void train(Network network, TrainingSuite trainingSuite, BigDecimal learningRate, int batchSize, int epochs);
+	public void train(Network network, TrainingSuite trainingSuite, double learningRate, int batchSize, int epochs);
 }

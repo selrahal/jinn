@@ -1,6 +1,5 @@
 package org.salemelrahal.jinn.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -37,7 +36,7 @@ public class Layer {
 		}
 	}
 	
-	public void updateRunningError(BigDecimal learningRateFactor) {
+	public void updateRunningError(double learningRateFactor) {
 		for (Neuron neuron: neurons) {
 			neuron.updateRunningError(learningRateFactor);
 		}
@@ -64,13 +63,13 @@ public class Layer {
 	
 	public void resetErrors() {
 		for (Neuron neuron : neurons) {
-			neuron.setError(BigDecimal.ZERO);
+			neuron.setError(0);
 		}
 	}
 	
 	public void resetNetInput() {
 		for (Neuron neuron : neurons) {
-			neuron.setNetInput(BigDecimal.ZERO);
+			neuron.setNetInput(0);
 		}
 	}
 	
@@ -98,13 +97,13 @@ public class Layer {
 		return sb.toString();
 	}
 
-	public BigDecimal hashed() {
-		BigDecimal count = BigDecimal.ZERO;
+	public double hashed() {
+		double count = 0;
 		for (Link link : links) {
-			count = count.add(link.hashed());
+			count = count + link.hashed();
 		}
 		for (Neuron neuron : neurons) {
-			count = count.add(neuron.hashed());
+			count = count + neuron.hashed();
 		}
 		return count;
 	}

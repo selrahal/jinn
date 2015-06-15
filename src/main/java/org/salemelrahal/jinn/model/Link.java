@@ -1,6 +1,5 @@
 package org.salemelrahal.jinn.model;
 
-import java.math.BigDecimal;
 
 import org.salemelrahal.jinn.util.RandomUtil;
 
@@ -9,33 +8,33 @@ import org.salemelrahal.jinn.util.RandomUtil;
 public class Link {
 	private Neuron from;
 	private Neuron to;
-	private BigDecimal weight;
-	private BigDecimal runningError = BigDecimal.ZERO;
+	private double weight;
+	private double runningError = 0;
 	
 	public Link(Neuron from, Neuron to) {
-		this(from, to, RandomUtil.randomBigDecimal());
+		this(from, to, RandomUtil.randomGaussian());
 	}
 	
-	public Link(Neuron from, Neuron to, BigDecimal weight) {
+	public Link(Neuron from, Neuron to, double weight) {
 		this.from = from;
 		this.to = to;
 		this.weight = weight;
 	}
 	
 	public void fire() {
-		BigDecimal netInput = to.getNetInput();
-		BigDecimal source = from.getActivation();
-		BigDecimal delta = source.multiply(weight);
-		to.setNetInput(netInput.add(delta));
+		double netInput = to.getNetInput();
+		double source = from.getActivation();
+		double delta = source * weight;
+		to.setNetInput(netInput + delta);
 	}
 	
 	public void backPropagate() {
 		
-		BigDecimal source = to.getError();
-		BigDecimal delta = source.multiply(weight).multiply(from.getActivationDerivative());
+		double source = to.getError();
+		double delta = source*weight*from.getActivationDerivative();
 		
-		BigDecimal error = from.getError();
-		from.setError(error.add(delta));
+		double error = from.getError();
+		from.setError(error + delta);
 	}
 	
 	
@@ -43,17 +42,17 @@ public class Link {
 	 * only in charge of making sure the running delta is up to date
 	 * @param learningRateFactor 
 	 */
-	public void updateRunningError(BigDecimal learningRateFactor) {
-		BigDecimal activation = from.getActivation();
-		BigDecimal error = to.getError();
+	public void updateRunningError(double learningRateFactor) {
+		double activation = from.getActivation();
+		double error = to.getError();
 		
-		runningError = runningError.add(activation.multiply(error).multiply(learningRateFactor));
+		runningError = runningError + (activation * (error) * (learningRateFactor));
 	}
 	
 	public void learn() {
 //		runningError = runningError.multiply(learningRate).divide(BigDecimal.valueOf(numberOfTests),5,RoundingMode.HALF_DOWN);
-		weight = weight.subtract(runningError);
-		runningError = BigDecimal.ZERO;
+		weight = weight - runningError;
+		runningError = 0;
 	}
 	
 	public Neuron getFrom() {
@@ -72,21 +71,26 @@ public class Link {
 		this.to = to;
 	}
 
-	public BigDecimal getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 
-	public void setWeight(BigDecimal weight) {
+	public void setWeight(double weight) {
 		this.weight = weight;
 	}
 
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((from == null) ? 0 : from.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(runningError);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((to == null) ? 0 : to.hashCode());
-		result = prime * result + ((weight == null) ? 0 : weight.hashCode());
+		temp = Double.doubleToLongBits(weight);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -104,15 +108,16 @@ public class Link {
 				return false;
 		} else if (!from.equals(other.from))
 			return false;
+		if (Double.doubleToLongBits(runningError) != Double
+				.doubleToLongBits(other.runningError))
+			return false;
 		if (to == null) {
 			if (other.to != null)
 				return false;
 		} else if (!to.equals(other.to))
 			return false;
-		if (weight == null) {
-			if (other.weight != null)
-				return false;
-		} else if (!weight.equals(other.weight))
+		if (Double.doubleToLongBits(weight) != Double
+				.doubleToLongBits(other.weight))
 			return false;
 		return true;
 	}
@@ -122,7 +127,7 @@ public class Link {
 		return "Link [from=" + from + ", to=" + to + ", weight=" + weight + "]";
 	}
 
-	public BigDecimal hashed() {
+	public double hashed() {
 		return weight;
 	}
 

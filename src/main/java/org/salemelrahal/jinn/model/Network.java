@@ -1,6 +1,5 @@
 package org.salemelrahal.jinn.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -56,10 +55,10 @@ public class Network {
 		for (Neuron neuron : getOutput().getNeurons()) {
 			if (expectedNeurons.hasNext()) {
 				Neuron expectedNeuron = expectedNeurons.next();
-				BigDecimal expectedActivation = expectedNeuron.getActivation();
-				BigDecimal actualActivation = neuron.getActivation();
-				BigDecimal cost = actualActivation.subtract(expectedActivation);
-				BigDecimal error = cost.multiply(neuron.getActivationDerivative());
+				double expectedActivation = expectedNeuron.getActivation();
+				double actualActivation = neuron.getActivation();
+				double cost = actualActivation - expectedActivation;
+				double error = cost * neuron.getActivationDerivative();
 //				LOG.info("E:" + expectedActivation + ", A:" + actualActivation + ", AD:" + neuron.getActivationDerivative()+ ", Error " + error);
 				neuron.setError(error);
 			}
@@ -71,7 +70,7 @@ public class Network {
 		}
 	}
 	
-	public void updateRunningError(BigDecimal learningRateFactor) {
+	public void updateRunningError(double learningRateFactor) {
 		for (Layer layer : layers) {
 			layer.updateRunningError(learningRateFactor);
 		}
@@ -110,10 +109,10 @@ public class Network {
 		return sb.toString();
 	}
 	
-	public BigDecimal hashed() {
-		BigDecimal count = BigDecimal.ZERO;
+	public double hashed() {
+		double count = 0;
 		for (Layer layer : layers) {
-			count = count.add(layer.hashed());
+			count = count + layer.hashed();
 		}
 		return count;
 	}

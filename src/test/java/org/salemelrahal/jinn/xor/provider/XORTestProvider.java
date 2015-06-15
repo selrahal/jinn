@@ -1,6 +1,5 @@
 package org.salemelrahal.jinn.xor.provider;
 
-import java.math.BigDecimal;
 
 import org.salemelrahal.jinn.model.input.StaticLayer;
 import org.salemelrahal.jinn.test.TrainingSuite;
@@ -20,11 +19,11 @@ public class XORTestProvider {
 		TrainingTest test = new TrainingTest();
 		
 		StaticLayer input = new StaticLayer(2);
-		input.getNeurons().get(0).setNetInput(BigDecimal.ONE);
-		input.getNeurons().get(1).setNetInput(BigDecimal.ONE);
+		input.getNeurons().get(0).setNetInput(1);
+		input.getNeurons().get(1).setNetInput(1);
 		
 		StaticLayer expected = new StaticLayer(1);
-		expected.getNeurons().get(0).setNetInput(BigDecimal.ZERO);
+		expected.getNeurons().get(0).setNetInput(0);
 		
 		test.setInput(input);
 		test.setExpected(expected);
@@ -40,11 +39,11 @@ public class XORTestProvider {
 		TrainingTest test = new TrainingTest();
 		
 		StaticLayer input = new StaticLayer(2);
-		input.getNeurons().get(0).setNetInput(BigDecimal.ZERO);
-		input.getNeurons().get(1).setNetInput(BigDecimal.ZERO);
+		input.getNeurons().get(0).setNetInput(0);
+		input.getNeurons().get(1).setNetInput(0);
 		
 		StaticLayer expected = new StaticLayer(1);
-		expected.getNeurons().get(0).setNetInput(BigDecimal.ZERO);
+		expected.getNeurons().get(0).setNetInput(0);
 		
 		test.setInput(input);
 		test.setExpected(expected);
@@ -60,11 +59,11 @@ public class XORTestProvider {
 		TrainingTest test = new TrainingTest();
 		
 		StaticLayer input = new StaticLayer(2);
-		input.getNeurons().get(0).setNetInput(BigDecimal.ONE);
-		input.getNeurons().get(1).setNetInput(BigDecimal.ZERO);
+		input.getNeurons().get(0).setNetInput(1);
+		input.getNeurons().get(1).setNetInput(0);
 		
 		StaticLayer expected = new StaticLayer(1);
-		expected.getNeurons().get(0).setNetInput(BigDecimal.ONE);
+		expected.getNeurons().get(0).setNetInput(1);
 		
 		test.setInput(input);
 		test.setExpected(expected);
@@ -80,11 +79,11 @@ public class XORTestProvider {
 		TrainingTest test = new TrainingTest();
 		
 		StaticLayer input = new StaticLayer(2);
-		input.getNeurons().get(0).setNetInput(BigDecimal.ZERO);
-		input.getNeurons().get(1).setNetInput(BigDecimal.ONE);
+		input.getNeurons().get(0).setNetInput(0);
+		input.getNeurons().get(1).setNetInput(1);
 		
 		StaticLayer expected = new StaticLayer(1);
-		expected.getNeurons().get(0).setNetInput(BigDecimal.ONE);
+		expected.getNeurons().get(0).setNetInput(1);
 		
 		test.setInput(input);
 		test.setExpected(expected);

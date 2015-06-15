@@ -1,36 +1,34 @@
 package org.salemelrahal.jinn.model;
 
-import java.math.BigDecimal;
-
 import org.salemelrahal.jinn.util.MathUtil;
 import org.salemelrahal.jinn.util.RandomUtil;
 
 public class Neuron {
-	protected BigDecimal netInput = BigDecimal.ZERO;
-	private BigDecimal bias = RandomUtil.randomBigDecimal();
-	private BigDecimal error = BigDecimal.ZERO;
-	private BigDecimal runningError = BigDecimal.ZERO;
+	protected double netInput = 0;
+	private double bias = RandomUtil.randomGaussian();
+	private double error = 0;
+	private double runningError = 0;
 	
 	private boolean cachedActivationStale = true;
-	private BigDecimal cachedActivation = BigDecimal.ZERO;
+	private double cachedActivation = 0;
 	
 	private boolean cachedActivationDerivitiveStale = true;
-	private BigDecimal cachedActivationDerivitave = BigDecimal.ZERO;
+	private double cachedActivationDerivitave = 0;
 	
 	public Neuron() {
 	}
 	
-	public BigDecimal getActivation() {
+	public double getActivation() {
 		if (cachedActivationStale) {
-			cachedActivation = MathUtil.sigmoid(netInput.add(bias));
+			cachedActivation = MathUtil.sigmoid(netInput+bias);
 			cachedActivationStale = false;
 		}
 		return cachedActivation;
 	}
 	
-	public BigDecimal getActivationDerivative() {
+	public double getActivationDerivative() {
 		if (cachedActivationDerivitiveStale) {
-			cachedActivationDerivitave = MathUtil.sigmoidDerivitave(netInput.add(bias));;
+			cachedActivationDerivitave = MathUtil.sigmoidDerivitave(netInput+bias);
 			cachedActivationDerivitiveStale = false;
 		}
 		return cachedActivationDerivitave;
@@ -40,39 +38,39 @@ public class Neuron {
 	 * only in charge of making sure the running delta is up to date
 	 * @param learningRateFactor 
 	 */
-	public void updateRunningError(BigDecimal learningRateFactor) {
-		runningError = runningError.add(error.multiply(learningRateFactor));
+	public void updateRunningError(double learningRateFactor) {
+		runningError = runningError + (error * learningRateFactor);
 	}
 	
 	public void learn() {
 //		runningError = runningError.multiply(learningRate).divide(BigDecimal.valueOf(numberOfTests),5,RoundingMode.HALF_DOWN);
-		bias = bias.subtract(runningError);
-		runningError = BigDecimal.ZERO;
+		bias = bias - runningError;
+		runningError = 0;
 	}
 	
-	public void setNetInput(BigDecimal activation) {
+	public void setNetInput(double activation) {
 		cachedActivationDerivitiveStale = true;
 		cachedActivationStale = true;
 		this.netInput = activation;
 	}
 	
-	public BigDecimal getNetInput() {
+	public double getNetInput() {
 		return netInput;
 	}
 
-	public BigDecimal getBias() {
+	public double getBias() {
 		return bias;
 	}
 
-	public void setBias(BigDecimal bias) {
+	public void setBias(double bias) {
 		this.bias = bias;
 	}
 	
-	public BigDecimal getError() {
+	public double getError() {
 		return error;
 	}
 
-	public void setError(BigDecimal error) {
+	public void setError(double error) {
 		this.error = error;
 	}
 
@@ -82,7 +80,7 @@ public class Neuron {
 				+ getActivation() + "]";
 	}
 
-	public BigDecimal hashed() {
+	public double hashed() {
 		return bias;
 	}
 

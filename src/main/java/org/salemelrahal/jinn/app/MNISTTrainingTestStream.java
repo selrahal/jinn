@@ -3,7 +3,6 @@ package org.salemelrahal.jinn.app;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Iterator;
 
 import org.salemelrahal.jinn.model.Network;
@@ -17,7 +16,7 @@ import org.salemelrahal.jinn.train.StochasticTrainer;
 import org.salemelrahal.jinn.train.api.NetworkTrainer;
 
 public class MNISTTrainingTestStream implements Iterator<TrainingTest> {
-	private static final BigDecimal scale = BigDecimal.valueOf(256);
+	private static final double scale = 256;
 	int numLabels = 0;
 	int numImages = 0;
 	int numRows = 0;
@@ -102,17 +101,17 @@ public void remove(){
 		StaticLayer input = new StaticLayer(784);
 		for (int vector = 0 ;  vector < image.length; vector++) {
 			for (int cell = 0 ; cell < image[vector].length ; cell++) {
-				input.getNeurons().get((vector * image.length) + cell).setNetInput(standardize(BigDecimal.valueOf(image[vector][cell])));
+				input.getNeurons().get((vector * image.length) + cell).setNetInput(standardize(image[vector][cell]));
 			}
 		}
 		  
 		StaticLayer expected = new StaticLayer(10);
 		for (Neuron neuron : expected.getNeurons()) {
-			neuron.setNetInput(BigDecimal.ZERO);
+			neuron.setNetInput(0);
 		}
 		  
 		  
-		expected.getNeurons().get(label).setNetInput(BigDecimal.ONE);
+		expected.getNeurons().get(label).setNetInput(1);
 		  
 		test.setInput(input);
 		test.setExpected(expected);
@@ -120,9 +119,9 @@ public void remove(){
 	}
 	  
 	  
-	private BigDecimal standardize(BigDecimal value) {
+	private double standardize(double value) {
 		//return value.subtract(BigDecimal.valueOf(128)).divide(scale);
-		return value.divide(scale);
+		return value / scale;
 	}
 	
 }

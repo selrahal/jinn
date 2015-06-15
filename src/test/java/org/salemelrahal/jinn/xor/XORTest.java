@@ -1,7 +1,5 @@
 package org.salemelrahal.jinn.xor;
 
-import java.math.BigDecimal;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.salemelrahal.jinn.model.Network;
@@ -22,7 +20,7 @@ import org.slf4j.LoggerFactory;
  */
 public class XORTest {
 	private static final Logger LOG = LoggerFactory.getLogger(XORTest.class);
-	private static final BigDecimal goal = BigDecimal.valueOf(.04);
+	private static final double goal = .04;
 
 	/**
 	 * Test the trained network to make sure its error is below the goal error.
@@ -34,14 +32,14 @@ public class XORTest {
 		NetworkTrainer trainer = new StochasticTrainer();
 		MeanSquaredTester tester = new MeanSquaredTester();
 		
-		trainer.train(network, xorSuite, BigDecimal.valueOf(1), 4, 5000);
+		trainer.train(network, xorSuite, 1, 4, 5000);
 		
 		
-		BigDecimal results = tester.test(network, xorSuite);
+		double results = tester.test(network, xorSuite);
 		
 		
 		LOG.info("XOR trained Test results:" + results);
-		Assert.assertTrue("XOR trained test failed("+results+")", results.compareTo(goal) < 0);
+		Assert.assertTrue("XOR trained test failed("+results+")", results < goal);
 	}
 	
 	/**
@@ -55,11 +53,11 @@ public class XORTest {
 		MeanSquaredTester tester = new MeanSquaredTester();
 		
 		
-		BigDecimal results = tester.test(network, xorSuite);
+		double results = tester.test(network, xorSuite);
 		
 		
 		LOG.info("XOR untrained Test results:" + results);
-		Assert.assertTrue("XOR untained test failed ("+results+")", results.compareTo(goal) > 0);
+		Assert.assertTrue("XOR untained test failed ("+results+")", results > goal);
 	}
 
 	/**
@@ -73,14 +71,14 @@ public class XORTest {
 		MeanSquaredTester tester = new MeanSquaredTester();
 		
 		for (int epoch = 0; epoch < 5000; epoch++)
-			trainer.train(network, xorSuite.getTests().iterator(), BigDecimal.valueOf(1));
+			trainer.train(network, xorSuite.getTests().iterator(), 1);
 		
 		
-		BigDecimal results = tester.test(network, xorSuite);
+		double results = tester.test(network, xorSuite);
 		
 		
 		LOG.info("XOR trained Test results:" + results);
-		Assert.assertTrue("XOR trained test failed("+results+")", results.compareTo(goal) < 0);
+		Assert.assertTrue("XOR trained test failed("+results+")", results  < goal);
 	}
 
 	/**
@@ -94,13 +92,13 @@ public class XORTest {
 		MeanSquaredStreamTester tester = new MeanSquaredStreamTester();
 		
 		for (int epoch = 0; epoch < 5000; epoch++)
-			trainer.train(network, xorSuite.getTests().iterator(), BigDecimal.valueOf(1));
+			trainer.train(network, xorSuite.getTests().iterator(), 1);
 		
 		
-		BigDecimal results = tester.test(network, xorSuite.getTests().iterator());
+		double results = tester.test(network, xorSuite.getTests().iterator());
 		
 		
 		LOG.info("XOR trained Test results:" + results);
-		Assert.assertTrue("XOR trained test failed("+results+")", results.compareTo(goal) < 0);
+		Assert.assertTrue("XOR trained test failed("+results+")", results < goal);
 	}
 }

@@ -15,21 +15,21 @@ import org.slf4j.LoggerFactory;
 public class OneChoiceTester implements NetworkTester {
 	private static final Logger LOG = LoggerFactory.getLogger(OneChoiceTester.class);
 
-	public BigDecimal test(Network network, TrainingSuite suite) {
-		BigDecimal totalTests = BigDecimal.ZERO;
-		BigDecimal passes = BigDecimal.ZERO;
+	public double test(Network network, TrainingSuite suite) {
+		double totalTests = 0;
+		double passes = 0;
 		
 		for (TrainingTest test : suite.getTests()) {
-			if (this.test(network, test).equals(BigDecimal.ZERO)) {
-				passes = passes.add(BigDecimal.ONE);
+			if (this.test(network, test) == 0) {
+				passes = passes + 1;
 			}
 			
-			totalTests = totalTests.add(BigDecimal.ONE);
+			totalTests = totalTests + 1;
 		}
-		return passes.divide(totalTests);
+		return passes/totalTests;
 	}
 
-	public BigDecimal test(Network network, TrainingTest test) {
+	public double test(Network network, TrainingTest test) {
 		network.fire(test.getInput());
 //		LOG.info("-");
 //		LOG.info(network.toString());
@@ -40,7 +40,7 @@ public class OneChoiceTester implements NetworkTester {
 	/**
 	 * Cost function is 1/2*sum((actual-expected)^2)
 	 */
-	private BigDecimal scoreTest(Layer expected, Network network) {
+	private double scoreTest(Layer expected, Network network) {
 		Layer actual = network.getOutput();
 		if (expected.getNeurons().size() != actual.getNeurons().size()) {
 			throw new IllegalArgumentException(
@@ -52,7 +52,7 @@ public class OneChoiceTester implements NetworkTester {
 		List<Neuron> actuals = actual.getNeurons();
 		for (int i = 0; i < actuals.size(); i++) {
 //			LOG.info(actuals.get(bestGuessIndex).getActivation()+">" + actuals.get(i).getActivation() + "("+actuals.get(i).getNetInput()+")");
-			if (actuals.get(bestGuessIndex).getActivation().compareTo(actuals.get(i).getActivation()) < 0) {
+			if (actuals.get(bestGuessIndex).getActivation() < (actuals.get(i).getActivation())) {
 				bestGuessIndex = i;
 			}
 		}
@@ -60,16 +60,16 @@ public class OneChoiceTester implements NetworkTester {
 		int answerIndex = 0;
 		List<Neuron> answers = expected.getNeurons();
 		for (int i = 0; i < answers.size(); i++) {
-			if (answers.get(answerIndex).getActivation().compareTo(answers.get(i).getActivation()) < 0) {
+			if (answers.get(answerIndex).getActivation() < (answers.get(i).getActivation())) {
 				answerIndex = i;
 			}
 		}
 		
 //		LOG.info(answerIndex + ":" + bestGuessIndex);
 		if (answerIndex == bestGuessIndex) {
-			return BigDecimal.ZERO;
+			return 0;
 		} else {
-			return BigDecimal.ONE;
+			return 1;
 		}
 		
 	}
