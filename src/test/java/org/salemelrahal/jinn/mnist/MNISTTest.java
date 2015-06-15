@@ -10,60 +10,39 @@ import org.salemelrahal.jinn.test.stream.RealtimeTrainer;
 
 public class MNISTTest {
 	private static final double GOAL = .75;
+	private static final String DIRECTORY = "src/test/resources/";
+	private static final String TRAINING_IMAGE_FILE = DIRECTORY + "train-images-idx3-ubyte";
+	private static final String TRAINING_LABEL_FILE = DIRECTORY + "train-labels-idx1-ubyte";
+	private static final String TESTING_IMAGE_FILE = DIRECTORY + "t10k-images-idx3-ubyte";
+	private static final String TESTING_LABEL_FILE = DIRECTORY + "t10k-labels-idx1-ubyte";
 
 	@Test
 	public void testTrainedHandwritingNetwork() throws IOException {
 		Network network = new Network(784, 10, 30);
 
-		String directory = "src/test/resources/";
-
-		String imageFile = directory + "train-images-idx3-ubyte";
-		String labelFile = directory + "train-labels-idx1-ubyte";
+		// Training
 		RealtimeTrainer trainer = new RealtimeTrainer();
-
-		for (int epoch = 0; epoch < 10; epoch++) {
-			MNISTTrainingTestStream tests = new MNISTTrainingTestStream(
-					imageFile, labelFile);
-
-			while (tests.hasNext()) {
-				trainer.train(network, tests, .3, 10);
-			}
-
-			// MeanSquaredStreamTester tester = new MeanSquaredStreamTester();
-			OneChoiceStreamTester tester = new OneChoiceStreamTester();
-
-			imageFile = directory + "t10k-images-idx3-ubyte";
-			labelFile = directory + "t10k-labels-idx1-ubyte";
-
-			MNISTTrainingTestStream testStream = new MNISTTrainingTestStream(
-					imageFile, labelFile);
-			double score = tester.test(network, testStream);
-			Assert.assertTrue("Trained network failed MNIST test:" + score,
-					score > GOAL);
-
+		MNISTTrainingTestStream tests = new MNISTTrainingTestStream(TRAINING_IMAGE_FILE, TRAINING_LABEL_FILE);
+		while (tests.hasNext()) {
+			trainer.train(network, tests, .3, 10);
 		}
+
+		// Testing
+		OneChoiceStreamTester tester = new OneChoiceStreamTester();
+		MNISTTrainingTestStream testStream = new MNISTTrainingTestStream(TESTING_IMAGE_FILE, TESTING_LABEL_FILE);
+		double score = tester.test(network, testStream);
+		Assert.assertTrue("Trained network failed MNIST test:" + score, score > GOAL);
 	}
 
 	@Test
 	public void testUntrainedHandwritingNetwork() throws IOException {
 		Network network = new Network(784, 10, 30);
 
-		String directory = "src/test/resources/";
-
-		String imageFile = directory + "train-images-idx3-ubyte";
-		String labelFile = directory + "train-labels-idx1-ubyte";
-
-		// MeanSquaredStreamTester tester = new MeanSquaredStreamTester();
+		// Testing
 		OneChoiceStreamTester tester = new OneChoiceStreamTester();
-
-		imageFile = directory + "t10k-images-idx3-ubyte";
-		labelFile = directory + "t10k-labels-idx1-ubyte";
-
-		MNISTTrainingTestStream testStream = new MNISTTrainingTestStream(
-				imageFile, labelFile);
+		MNISTTrainingTestStream testStream = new MNISTTrainingTestStream(TESTING_IMAGE_FILE, TESTING_LABEL_FILE);
 		double score = tester.test(network, testStream);
-		Assert.assertTrue("Untrained network passed MNIST test:" + score,
-				score < GOAL);
+		Assert.assertTrue("Untrained network passed MNIST test:" + score, score < GOAL);
 
 	}
 }
