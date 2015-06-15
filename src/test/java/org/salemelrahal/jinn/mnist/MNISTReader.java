@@ -17,7 +17,7 @@ public class MNISTReader {
 	  public static void main(String[] args) throws IOException {
 		Network network = new Network(784, 10, 30);
 
-		String directory = "";
+		String directory = "src/test/resources/";
 
 
 		String imageFile = directory + "train-images-idx3-ubyte";
