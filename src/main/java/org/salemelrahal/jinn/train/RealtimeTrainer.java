@@ -1,4 +1,4 @@
-package org.salemelrahal.jinn.test.stream;
+package org.salemelrahal.jinn.train;
 
 import java.util.Iterator;
 

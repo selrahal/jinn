@@ -1,15 +1,45 @@
-package org.salemelrahal.jinn.test.impl;
+package org.salemelrahal.jinn.test;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.salemelrahal.jinn.model.Layer;
 import org.salemelrahal.jinn.model.Network;
 import org.salemelrahal.jinn.model.Neuron;
-import org.salemelrahal.jinn.test.TrainingSuite;
-import org.salemelrahal.jinn.test.TrainingTest;
-import org.salemelrahal.jinn.test.api.NetworkTester;
 
-public class OneChoiceTester implements NetworkTester {
+public class OneChoiceTester {
+	
+	public double test(Network network, Iterator<TrainingTest> tests) {
+		double totalTests = 0;
+		double passes = 0;
+		
+		while (tests.hasNext()){
+			TrainingTest test = tests.next();
+			if (this.test(network, test) == 0) {
+				passes = passes + 1;
+			}
+			
+			totalTests = totalTests + 1;
+		}
+		return passes/totalTests;
+	}
+
+	public double test(Network network, Iterator<TrainingTest> tests, int limit) {
+		int count = 0;
+		double totalTests = 0;
+		double passes = 0;
+		
+		while (count < limit && tests.hasNext()){
+			count++;
+			TrainingTest test = tests.next();
+			if (this.test(network, test) == 0) {
+				passes = passes + 1;
+			}
+			
+			totalTests = totalTests + 1;
+		}
+		return passes/totalTests;
+	}
 
 	public double test(Network network, TrainingSuite suite) {
 		double totalTests = 0;

@@ -5,8 +5,8 @@ import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.salemelrahal.jinn.model.Network;
-import org.salemelrahal.jinn.test.impl.OneChoiceStreamTester;
-import org.salemelrahal.jinn.test.stream.RealtimeTrainer;
+import org.salemelrahal.jinn.test.OneChoiceTester;
+import org.salemelrahal.jinn.train.RealtimeTrainer;
 
 public class MNISTTest {
 	private static final double GOAL = .75;
@@ -28,7 +28,7 @@ public class MNISTTest {
 		}
 
 		// Testing
-		OneChoiceStreamTester tester = new OneChoiceStreamTester();
+		OneChoiceTester tester = new OneChoiceTester();
 		MNISTTrainingTestStream testStream = new MNISTTrainingTestStream(TESTING_IMAGE_FILE, TESTING_LABEL_FILE);
 		double score = tester.test(network, testStream);
 		Assert.assertTrue("Trained network failed MNIST test:" + score, score > GOAL);
@@ -39,7 +39,7 @@ public class MNISTTest {
 		Network network = new Network(784, 10, 30);
 
 		// Testing
-		OneChoiceStreamTester tester = new OneChoiceStreamTester();
+		OneChoiceTester tester = new OneChoiceTester();
 		MNISTTrainingTestStream testStream = new MNISTTrainingTestStream(TESTING_IMAGE_FILE, TESTING_LABEL_FILE);
 		double score = tester.test(network, testStream);
 		Assert.assertTrue("Untrained network passed MNIST test:" + score, score < GOAL);

@@ -1,16 +1,40 @@
-package org.salemelrahal.jinn.test.impl;
+package org.salemelrahal.jinn.test;
+
+import java.util.Iterator;
 
 import org.salemelrahal.jinn.model.Layer;
 import org.salemelrahal.jinn.model.Network;
-import org.salemelrahal.jinn.test.TrainingSuite;
-import org.salemelrahal.jinn.test.TrainingTest;
-import org.salemelrahal.jinn.test.api.NetworkTester;
 import org.salemelrahal.jinn.util.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MeanSquaredTester implements NetworkTester {
+public class MeanSquaredTester {
 	private static final Logger LOG = LoggerFactory.getLogger(MeanSquaredTester.class);
+	
+	public double test(Network network, Iterator<TrainingTest> tests) {
+		double totalError = 0;
+		while (tests.hasNext()) {
+			TrainingTest test = tests.next();
+			double testScore = this.test(network, test);
+			totalError = totalError + testScore;
+		}
+		
+		return totalError;
+	}
+
+	public double test(Network network, Iterator<TrainingTest> tests, int limit) {
+		double totalError = 0;
+		int count = 0;
+		while (count < limit && tests.hasNext()) {
+			count++;
+			TrainingTest test = tests.next();
+			double testScore = this.test(network, test);
+//			LOG.info("Test score:" + testScore);
+			totalError = totalError + testScore;
+		}
+		
+		return totalError;
+	}
 	
 	public double test(Network network, TrainingSuite suite) {
 		double totalError = 0;

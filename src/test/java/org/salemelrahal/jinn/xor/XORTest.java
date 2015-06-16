@@ -3,12 +3,10 @@ package org.salemelrahal.jinn.xor;
 import org.junit.Assert;
 import org.junit.Test;
 import org.salemelrahal.jinn.model.Network;
+import org.salemelrahal.jinn.test.MeanSquaredTester;
 import org.salemelrahal.jinn.test.TrainingSuite;
-import org.salemelrahal.jinn.test.stream.RealtimeTrainer;
-import org.salemelrahal.jinn.test.impl.MeanSquaredTester;
-import org.salemelrahal.jinn.test.impl.MeanSquaredStreamTester;
+import org.salemelrahal.jinn.train.RealtimeTrainer;
 import org.salemelrahal.jinn.train.StochasticTrainer;
-import org.salemelrahal.jinn.train.api.NetworkTrainer;
 import org.salemelrahal.jinn.xor.provider.XORTestProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +27,7 @@ public class XORTest {
 	public void testTrained() {
 		Network network = new Network(2,1,4);
 		TrainingSuite xorSuite = XORTestProvider.getXorSuite();
-		NetworkTrainer trainer = new StochasticTrainer();
+		StochasticTrainer trainer = new StochasticTrainer();
 		MeanSquaredTester tester = new MeanSquaredTester();
 		
 		trainer.train(network, xorSuite, 1, 4, 5000);
@@ -89,7 +87,7 @@ public class XORTest {
 		Network network = new Network(2,1,4);
 		TrainingSuite xorSuite = XORTestProvider.getXorSuite();
 		RealtimeTrainer trainer = new RealtimeTrainer();
-		MeanSquaredStreamTester tester = new MeanSquaredStreamTester();
+		MeanSquaredTester tester = new MeanSquaredTester();
 		
 		for (int epoch = 0; epoch < 5000; epoch++)
 			trainer.train(network, xorSuite.getTests().iterator(), 1);
