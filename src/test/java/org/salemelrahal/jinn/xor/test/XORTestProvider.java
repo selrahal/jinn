@@ -1,7 +1,8 @@
-package org.salemelrahal.jinn.xor.provider;
+package org.salemelrahal.jinn.xor.test;
 
 
 import org.salemelrahal.jinn.model.input.StaticLayer;
+import org.salemelrahal.jinn.test.ArrayTrainingSuite;
 import org.salemelrahal.jinn.test.TrainingSuite;
 import org.salemelrahal.jinn.test.TrainingTest;
 
@@ -95,7 +96,7 @@ public class XORTestProvider {
 	 * @return a TrainingSuite with all 4 XOR tests
 	 */
 	public static TrainingSuite getXorSuite() {
-		final TrainingSuite trainingSuite = new TrainingSuite();
+		final TrainingSuite trainingSuite = new ArrayTrainingSuite();
 		trainingSuite.addTest(getXor1());
 		trainingSuite.addTest(getXor2());
 		trainingSuite.addTest(getXor3());
@@ -107,7 +108,7 @@ public class XORTestProvider {
 	 * @return a TrainingSuite with the XOR tests that should output 0
 	 */
 	public static TrainingSuite getXorSuite0() {
-		final TrainingSuite trainingSuite = new TrainingSuite();
+		final TrainingSuite trainingSuite = new ArrayTrainingSuite();
 		trainingSuite.addTest(getXor1());
 		trainingSuite.addTest(getXor2());
 		return trainingSuite;
@@ -117,7 +118,7 @@ public class XORTestProvider {
 	 * @return a TrainingSuite with the XOR tests that should output 1
 	 */
 	public static TrainingSuite getXorSuite1() {
-		final TrainingSuite trainingSuite = new TrainingSuite();
+		final TrainingSuite trainingSuite = new ArrayTrainingSuite();
 		trainingSuite.addTest(getXor3());
 		trainingSuite.addTest(getXor4());
 		return trainingSuite;

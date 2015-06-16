@@ -1,13 +1,15 @@
 package org.salemelrahal.jinn.train;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.salemelrahal.jinn.model.Network;
+import org.salemelrahal.jinn.test.ArrayTrainingSuite;
 import org.salemelrahal.jinn.test.TrainingSuite;
 import org.salemelrahal.jinn.test.TrainingTest;
 
 /**
- * This trainer will train the network using a stochastic gradient descent algroithm.
+ * This trainer will train the network using a stochastic gradient descent algorithm.
  *
  */
 public class StochasticTrainer {
@@ -21,16 +23,19 @@ public class StochasticTrainer {
 		}
 	}
 	
-	
-
 	private void trainBatch(Network network, TrainingSuite trainingSuite, double learningRate) {
-		int batchSize = trainingSuite.getTests().size();
-		if (batchSize > 0) {
-			for (TrainingTest test : trainingSuite.getTests()) {
-				network.fire(test.getInput());
-				network.backPropagate(test.getExpected());
-				network.updateRunningError(learningRate /batchSize);
-			}
+		boolean trainedAtLeastOnce = false;
+		Iterator<TrainingTest> tests = trainingSuite.iterator();
+
+		while (tests.hasNext()) {
+			TrainingTest test = tests.next();
+			network.fire(test.getInput());
+			network.backPropagate(test.getExpected());
+			network.updateRunningError(learningRate /trainingSuite.size());
+			trainedAtLeastOnce = true;
+		}
+		
+		if (trainedAtLeastOnce) {
 			network.learn();
 		}
 	}

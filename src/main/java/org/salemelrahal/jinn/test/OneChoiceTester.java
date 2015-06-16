@@ -9,10 +9,10 @@ import org.salemelrahal.jinn.model.Neuron;
 
 public class OneChoiceTester {
 	
-	public double test(Network network, Iterator<TrainingTest> tests) {
+	public double test(Network network, TrainingSuite suite) {
 		double totalTests = 0;
 		double passes = 0;
-		
+		Iterator<TrainingTest> tests = suite.iterator();
 		while (tests.hasNext()){
 			TrainingTest test = tests.next();
 			if (this.test(network, test) == 0) {
@@ -24,11 +24,11 @@ public class OneChoiceTester {
 		return passes/totalTests;
 	}
 
-	public double test(Network network, Iterator<TrainingTest> tests, int limit) {
+	public double test(Network network, TrainingSuite suite, int limit) {
 		int count = 0;
 		double totalTests = 0;
 		double passes = 0;
-		
+		Iterator<TrainingTest> tests = suite.iterator();
 		while (count < limit && tests.hasNext()){
 			count++;
 			TrainingTest test = tests.next();
@@ -41,25 +41,8 @@ public class OneChoiceTester {
 		return passes/totalTests;
 	}
 
-	public double test(Network network, TrainingSuite suite) {
-		double totalTests = 0;
-		double passes = 0;
-		
-		for (TrainingTest test : suite.getTests()) {
-			if (this.test(network, test) == 0) {
-				passes = passes + 1;
-			}
-			
-			totalTests = totalTests + 1;
-		}
-		return passes/totalTests;
-	}
-
-	public double test(Network network, TrainingTest test) {
+	private double test(Network network, TrainingTest test) {
 		network.fire(test.getInput());
-//		LOG.info("-");
-//		LOG.info(network.toString());
-//		LOG.info("-");
 		return scoreTest(test.getExpected(), network);
 	}
 
@@ -77,7 +60,6 @@ public class OneChoiceTester {
 		int bestGuessIndex = 0;
 		List<Neuron> actuals = actual.getNeurons();
 		for (int i = 0; i < actuals.size(); i++) {
-//			LOG.info(actuals.get(bestGuessIndex).getActivation()+">" + actuals.get(i).getActivation() + "("+actuals.get(i).getNetInput()+")");
 			if (actuals.get(bestGuessIndex).getActivation() < (actuals.get(i).getActivation())) {
 				bestGuessIndex = i;
 			}
@@ -91,7 +73,6 @@ public class OneChoiceTester {
 			}
 		}
 		
-//		LOG.info(answerIndex + ":" + bestGuessIndex);
 		if (answerIndex == bestGuessIndex) {
 			return 0;
 		} else {

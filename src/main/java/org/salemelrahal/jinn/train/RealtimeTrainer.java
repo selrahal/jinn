@@ -3,6 +3,7 @@ package org.salemelrahal.jinn.train;
 import java.util.Iterator;
 
 import org.salemelrahal.jinn.model.Network;
+import org.salemelrahal.jinn.test.TrainingSuite;
 import org.salemelrahal.jinn.test.TrainingTest;
 
 /**
@@ -11,11 +12,14 @@ import org.salemelrahal.jinn.test.TrainingTest;
  */
 public class RealtimeTrainer {
 	
+	//TODO: implement epochs and reset method on trainingsuite
+	
 	/**
 	 * Train the network using the provided stream of tests. This will exhaust
 	 * the stream and will use only one batch.
 	 */
-	public void train(final Network network, final Iterator<TrainingTest> tests, final double learningRate){
+	public void train(final Network network, final TrainingSuite suite, final double learningRate){
+		Iterator<TrainingTest> tests = suite.iterator();
 		while (tests.hasNext()) {
 			final TrainingTest test = tests.next();
 			train(network, test, learningRate);
@@ -27,7 +31,8 @@ public class RealtimeTrainer {
 	 * Train the network using the provided stream of tests. This will use
 	 * up to the limit and will use only one batch.
 	 */
-	public void train(final Network network, final Iterator<TrainingTest> tests, final double learningRate, final int limit){
+	public void train(final Network network, final TrainingSuite suite, final double learningRate, final int limit){
+		Iterator<TrainingTest> tests = suite.iterator();
 		int count = 0;
 		while (count < limit && tests.hasNext()){
 			count++;

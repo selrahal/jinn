@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.salemelrahal.jinn.mnist.test.MNISTTrainingTestStream;
 import org.salemelrahal.jinn.model.Network;
 import org.salemelrahal.jinn.test.OneChoiceTester;
 import org.salemelrahal.jinn.train.RealtimeTrainer;

@@ -5,14 +5,12 @@ import java.util.Iterator;
 import org.salemelrahal.jinn.model.Layer;
 import org.salemelrahal.jinn.model.Network;
 import org.salemelrahal.jinn.util.MathUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class MeanSquaredTester {
-	private static final Logger LOG = LoggerFactory.getLogger(MeanSquaredTester.class);
-	
-	public double test(Network network, Iterator<TrainingTest> tests) {
+	public double test(Network network, TrainingSuite suite) {
 		double totalError = 0;
+		Iterator<TrainingTest> tests = suite.iterator();
+		
 		while (tests.hasNext()) {
 			TrainingTest test = tests.next();
 			double testScore = this.test(network, test);
@@ -22,37 +20,25 @@ public class MeanSquaredTester {
 		return totalError;
 	}
 
-	public double test(Network network, Iterator<TrainingTest> tests, int limit) {
+	public double test(Network network, TrainingSuite suite, int limit) {
 		double totalError = 0;
 		int count = 0;
+		Iterator<TrainingTest> tests = suite.iterator();
+		
 		while (count < limit && tests.hasNext()) {
 			count++;
 			TrainingTest test = tests.next();
 			double testScore = this.test(network, test);
-//			LOG.info("Test score:" + testScore);
 			totalError = totalError + testScore;
 		}
 		
 		return totalError;
 	}
 	
-	public double test(Network network, TrainingSuite suite) {
-		double totalError = 0;
-
-		for (TrainingTest test : suite.getTests()) {
-			double testScore = this.test(network, test);
-			LOG.info("Test score:" + testScore);
-			totalError = totalError + testScore;
-		}
-		
-		return totalError;
-	}
-	
-	public double test(Network network, TrainingTest test) {
+	private double test(Network network, TrainingTest test) {
 		network.fire(test.getInput());
 		return scoreTest(test.getExpected(), network);
 	}
-	
 	
 	/**
 	 * Cost function is 1/2*sum((actual-expected)^2)

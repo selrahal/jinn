@@ -7,7 +7,7 @@ import org.salemelrahal.jinn.test.MeanSquaredTester;
 import org.salemelrahal.jinn.test.TrainingSuite;
 import org.salemelrahal.jinn.train.RealtimeTrainer;
 import org.salemelrahal.jinn.train.StochasticTrainer;
-import org.salemelrahal.jinn.xor.provider.XORTestProvider;
+import org.salemelrahal.jinn.xor.test.XORTestProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,7 +69,7 @@ public class XORTest {
 		MeanSquaredTester tester = new MeanSquaredTester();
 		
 		for (int epoch = 0; epoch < 5000; epoch++)
-			trainer.train(network, xorSuite.getTests().iterator(), 1);
+			trainer.train(network, xorSuite, 1);
 		
 		
 		double results = tester.test(network, xorSuite);
@@ -90,10 +90,10 @@ public class XORTest {
 		MeanSquaredTester tester = new MeanSquaredTester();
 		
 		for (int epoch = 0; epoch < 5000; epoch++)
-			trainer.train(network, xorSuite.getTests().iterator(), 1);
+			trainer.train(network, xorSuite, 1);
 		
 		
-		double results = tester.test(network, xorSuite.getTests().iterator());
+		double results = tester.test(network, xorSuite);
 		
 		
 		LOG.info("XOR trained Test results:" + results);

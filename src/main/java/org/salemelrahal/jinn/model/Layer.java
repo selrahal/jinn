@@ -6,11 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Layer {
-	protected List<Neuron> neurons;
+	protected List<Neuron> neurons = Collections.emptyList();
 	protected List<Link> links = Collections.emptyList();
 	
 	protected Layer() {
-		
 	}
 
 	public Layer(int size) {

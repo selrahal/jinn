@@ -1,15 +1,18 @@
-package org.salemelrahal.jinn.mnist;
+package org.salemelrahal.jinn.mnist.test;
 
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 
 import org.salemelrahal.jinn.model.Neuron;
 import org.salemelrahal.jinn.model.input.StaticLayer;
+import org.salemelrahal.jinn.test.ArrayTrainingSuite;
+import org.salemelrahal.jinn.test.TrainingSuite;
 import org.salemelrahal.jinn.test.TrainingTest;
 
-public class MNISTTrainingTestStream implements Iterator<TrainingTest> {
+public class MNISTTrainingTestStream implements TrainingSuite, Iterator<TrainingTest> {
 	private static final double SCALE = 256;
 	int numLabels = 0;
 	int numImages = 0;
@@ -116,6 +119,26 @@ public void remove(){
 	private double standardize(double value) {
 		//return value.subtract(BigDecimal.valueOf(128)).divide(scale);
 		return value / SCALE;
+	}
+
+	@Override
+	public void addTest(TrainingTest test) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Iterator<TrainingTest> iterator() {
+		return this;
+	}
+
+	@Override
+	public int size() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public List<TrainingSuite> split(int batchSize) {
+		throw new UnsupportedOperationException();
 	}
 	
 }
