@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.salemelrahal.jinn.model.Network;
-import org.salemelrahal.jinn.test.ArrayTrainingSuite;
 import org.salemelrahal.jinn.test.TrainingSuite;
 import org.salemelrahal.jinn.test.TrainingTest;
 

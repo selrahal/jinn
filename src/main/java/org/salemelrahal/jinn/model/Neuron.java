@@ -5,7 +5,7 @@ import org.salemelrahal.jinn.util.RandomUtil;
 
 public class Neuron {
 	protected double netInput = 0;
-	private double bias = RandomUtil.randomGaussian();
+	protected double bias = RandomUtil.randomGaussian();
 	private double error = 0;
 	private double runningError = 0;
 	
@@ -56,14 +56,6 @@ public class Neuron {
 	
 	public double getNetInput() {
 		return netInput;
-	}
-
-	public double getBias() {
-		return bias;
-	}
-
-	public void setBias(double bias) {
-		this.bias = bias;
 	}
 	
 	public double getError() {

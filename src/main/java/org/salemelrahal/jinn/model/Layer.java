@@ -72,10 +72,6 @@ public class Layer {
 		}
 	}
 	
-	public List<Link> getLinks() {
-		return links;
-	}
-	
 	public Iterator<Neuron> neuronIterator() {
 		return neurons.iterator();
 	}

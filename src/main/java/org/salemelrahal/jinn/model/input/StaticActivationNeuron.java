@@ -11,7 +11,9 @@ public class StaticActivationNeuron extends Neuron {
 	
 	public StaticActivationNeuron() {
 		super();
-		setBias(0);
+		
+		//Static activation neurons don't have biases.
+		this.bias = 0;
 	}
 	
 	/**
@@ -21,14 +23,6 @@ public class StaticActivationNeuron extends Neuron {
 	@Override
 	public double getActivation() {
 		return this.netInput;
-	}
-	
-	/**
-	 * Input neurons do not have a bias.
-	 */
-	@Override
-	public double getBias() {
-		return 0;
 	}
 	
 	/**
@@ -45,6 +39,7 @@ public class StaticActivationNeuron extends Neuron {
 	 */
 	@Override
 	public void updateRunningError(double learningRateFactor) {
+		//No-op
 	}
 	
 }

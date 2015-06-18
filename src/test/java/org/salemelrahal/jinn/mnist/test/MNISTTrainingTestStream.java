@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.salemelrahal.jinn.model.Neuron;
 import org.salemelrahal.jinn.model.input.StaticLayer;
-import org.salemelrahal.jinn.test.ArrayTrainingSuite;
 import org.salemelrahal.jinn.test.TrainingSuite;
 import org.salemelrahal.jinn.test.TrainingTest;
 
