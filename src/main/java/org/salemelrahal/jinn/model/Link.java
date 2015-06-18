@@ -101,9 +101,4 @@ public class Link {
 	public String toString() {
 		return "Link [from=" + from + ", to=" + to + ", weight=" + weight + "]";
 	}
-
-	public double hashed() {
-		return weight;
-	}
-
 }

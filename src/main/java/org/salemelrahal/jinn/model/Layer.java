@@ -91,15 +91,4 @@ public class Layer {
 		}
 		return sb.toString();
 	}
-
-	public double hashed() {
-		double count = 0;
-		for (Link link : links) {
-			count = count + link.hashed();
-		}
-		for (Neuron neuron : neurons) {
-			count = count + neuron.hashed();
-		}
-		return count;
-	}
 }

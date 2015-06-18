@@ -71,9 +71,4 @@ public class Neuron {
 		return "Neuron [netInput=" + netInput + ", bias=" + bias + ", activation="
 				+ getActivation() + "]";
 	}
-
-	public double hashed() {
-		return bias;
-	}
-
 }

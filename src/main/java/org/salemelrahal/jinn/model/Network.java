@@ -105,12 +105,4 @@ public class Network {
 		}
 		return sb.toString();
 	}
-	
-	public double hashed() {
-		double count = 0;
-		for (Layer layer : layers) {
-			count = count + layer.hashed();
-		}
-		return count;
-	}
 }
