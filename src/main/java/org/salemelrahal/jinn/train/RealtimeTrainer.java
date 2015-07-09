@@ -10,22 +10,9 @@ import org.salemelrahal.jinn.test.TrainingTest;
  * This Trainer will train a network using a stream of tests.
  *
  */
-public class RealtimeTrainer {
+public class RealtimeTrainer extends NetworkTrainer {
 	
 	//TODO: implement epochs and reset method on trainingsuite
-	
-	/**
-	 * Train the network using the provided stream of tests. This will exhaust
-	 * the stream and will use only one batch.
-	 */
-	public void train(final Network network, final TrainingSuite suite, final double learningRate){
-		Iterator<TrainingTest> tests = suite.iterator();
-		while (tests.hasNext()) {
-			final TrainingTest test = tests.next();
-			train(network, test, learningRate);
-		}
-		network.learn();
-	}
 
 	/**
 	 * Train the network using the provided stream of tests. This will use
@@ -40,11 +27,5 @@ public class RealtimeTrainer {
 			train(network, test, learningRate);
 		}
 		network.learn();
-	}
-
-	private void train(final Network network, final TrainingTest test, final double learningRate){
-			network.fire(test.getInput());
-			network.backPropagate(test.getExpected());
-			network.updateRunningError(learningRate);
 	}
 }

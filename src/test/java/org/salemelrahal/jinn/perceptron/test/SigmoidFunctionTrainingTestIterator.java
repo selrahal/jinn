@@ -20,12 +20,10 @@ public class SigmoidFunctionTrainingTestIterator implements Iterator<TrainingTes
 		this.intercept = intercept;
 	}
 
-	@Override
 	public boolean hasNext() {
 		return true;
 	}
 
-	@Override
 	public TrainingTest next() {
 		double x = RandomUtil.randomGaussian();
 		
@@ -43,7 +41,6 @@ public class SigmoidFunctionTrainingTestIterator implements Iterator<TrainingTes
 		return test;
 	}
 
-	@Override
 	public void remove() {
 		throw new UnsupportedOperationException();
 	}

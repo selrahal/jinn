@@ -21,22 +21,18 @@ public class SigmoidFunctionTrainingSuite implements TrainingSuite {
 		this.intercept = intercept;
 	}
 
-	@Override
 	public void addTest(TrainingTest test) {
 		//This suite is stateless
 	}
 
-	@Override
 	public Iterator<TrainingTest> iterator() {
 		return new SigmoidFunctionTrainingTestIterator(slope, intercept);
 	}
 
-	@Override
 	public int size() {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public List<TrainingSuite> split(int batchSize) {
 		return Collections.singletonList((TrainingSuite)this);
 	}

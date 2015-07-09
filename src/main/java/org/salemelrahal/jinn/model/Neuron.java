@@ -43,7 +43,6 @@ public class Neuron {
 	}
 	
 	public void learn() {
-//		runningError = runningError.multiply(learningRate).divide(BigDecimal.valueOf(numberOfTests),5,RoundingMode.HALF_DOWN);
 		bias = bias - runningError;
 		runningError = 0;
 	}

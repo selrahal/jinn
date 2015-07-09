@@ -120,22 +120,18 @@ public void remove(){
 		return value / SCALE;
 	}
 
-	@Override
 	public void addTest(TrainingTest test) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public Iterator<TrainingTest> iterator() {
 		return this;
 	}
 
-	@Override
 	public int size() {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
 	public List<TrainingSuite> split(int batchSize) {
 		throw new UnsupportedOperationException();
 	}
