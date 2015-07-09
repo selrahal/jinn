@@ -12,7 +12,7 @@ public class NetworkTrainer {
 	 * Train the network using the provided suite.
 	 */
 	public void train(final Network network, final TrainingSuite suite, final double learningRate){
-		Iterator<TrainingTest> tests = suite.iterator();
+		Iterator<TrainingTest> tests = suite.tests();
 		while (tests.hasNext()) {
 			final TrainingTest test = tests.next();
 			train(network, test, learningRate);

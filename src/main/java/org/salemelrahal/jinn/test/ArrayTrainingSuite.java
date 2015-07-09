@@ -16,7 +16,7 @@ public class ArrayTrainingSuite implements TrainingSuite {
 		tests.add(test);
 	}
 	
-	public Iterator<TrainingTest> iterator() {
+	public Iterator<TrainingTest> tests() {
 		return tests.iterator();	
 	}
 	

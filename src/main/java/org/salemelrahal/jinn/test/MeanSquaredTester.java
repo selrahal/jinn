@@ -9,7 +9,7 @@ import org.salemelrahal.jinn.util.MathUtil;
 public class MeanSquaredTester {
 	public double test(Network network, TrainingSuite suite) {
 		double totalError = 0;
-		Iterator<TrainingTest> tests = suite.iterator();
+		Iterator<TrainingTest> tests = suite.tests();
 		
 		while (tests.hasNext()) {
 			TrainingTest test = tests.next();
@@ -23,7 +23,7 @@ public class MeanSquaredTester {
 	public double test(Network network, TrainingSuite suite, int limit) {
 		double totalError = 0;
 		int count = 0;
-		Iterator<TrainingTest> tests = suite.iterator();
+		Iterator<TrainingTest> tests = suite.tests();
 		
 		while (count < limit && tests.hasNext()) {
 			count++;

@@ -19,7 +19,7 @@ public class RealtimeTrainer extends NetworkTrainer {
 	 * up to the limit and will use only one batch.
 	 */
 	public void train(final Network network, final TrainingSuite suite, final double learningRate, final int limit){
-		Iterator<TrainingTest> tests = suite.iterator();
+		Iterator<TrainingTest> tests = suite.tests();
 		int count = 0;
 		while (count < limit && tests.hasNext()){
 			count++;

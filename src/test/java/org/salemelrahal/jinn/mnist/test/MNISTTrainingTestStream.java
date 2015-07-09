@@ -116,15 +116,10 @@ public void remove(){
 	  
 	  
 	private double standardize(double value) {
-		//return value.subtract(BigDecimal.valueOf(128)).divide(scale);
 		return value / SCALE;
 	}
 
-	public void addTest(TrainingTest test) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Iterator<TrainingTest> iterator() {
+	public Iterator<TrainingTest> tests() {
 		return this;
 	}
 

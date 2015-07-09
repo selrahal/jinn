@@ -4,8 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public interface TrainingSuite {
-	public void addTest(TrainingTest test);
-	public Iterator<TrainingTest> iterator();
-	public int size();
+	public Iterator<TrainingTest> tests();
 	public List<TrainingSuite> split(int batchSize);
 }

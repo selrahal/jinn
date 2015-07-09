@@ -12,7 +12,7 @@ public class OneChoiceTester {
 	public double test(Network network, TrainingSuite suite) {
 		double totalTests = 0;
 		double passes = 0;
-		Iterator<TrainingTest> tests = suite.iterator();
+		Iterator<TrainingTest> tests = suite.tests();
 		while (tests.hasNext()){
 			TrainingTest test = tests.next();
 			if (this.test(network, test) == 0) {
@@ -28,7 +28,7 @@ public class OneChoiceTester {
 		int count = 0;
 		double totalTests = 0;
 		double passes = 0;
-		Iterator<TrainingTest> tests = suite.iterator();
+		Iterator<TrainingTest> tests = suite.tests();
 		while (count < limit && tests.hasNext()){
 			count++;
 			TrainingTest test = tests.next();

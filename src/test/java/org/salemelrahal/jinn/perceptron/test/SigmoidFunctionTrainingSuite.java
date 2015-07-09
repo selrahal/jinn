@@ -25,7 +25,7 @@ public class SigmoidFunctionTrainingSuite implements TrainingSuite {
 		//This suite is stateless
 	}
 
-	public Iterator<TrainingTest> iterator() {
+	public Iterator<TrainingTest> tests() {
 		return new SigmoidFunctionTrainingTestIterator(slope, intercept);
 	}
 
